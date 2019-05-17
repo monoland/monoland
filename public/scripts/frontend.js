@@ -1728,8 +1728,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'page-base'
+  name: 'page-base',
+  data: function data() {
+    return {
+      snackbar: false,
+      message: 'pengguna dan atau katasandi tidak valid!'
+    };
+  },
+  mounted: function mounted() {
+    if (window.errors) {
+      this.snackbar = true;
+    }
+  }
 });
 
 /***/ }),
@@ -1747,8 +1789,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'page-login'
+  name: 'page-login',
+  data: function data() {
+    return {
+      email: null,
+      password: null,
+      hidden: true,
+      token: null,
+      errors: {
+        email: false,
+        password: false
+      },
+      hints: {
+        email: null,
+        password: null
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.token = this.$auth.token();
+  }
 });
 
 /***/ }),
@@ -7504,7 +7600,109 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "v-app",
+    {},
+    [
+      _c(
+        "v-navigation-drawer",
+        { attrs: { width: "400", right: "", app: "" } },
+        [_c("router-view", { key: _vm.$route.path })],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-content",
+        [
+          _c(
+            "v-container",
+            { attrs: { "fill-height": "" } },
+            [
+              _c(
+                "v-layout",
+                { attrs: { "align-center": "", "justify-center": "" } },
+                [
+                  _c("div", { staticClass: "message-box" }, [
+                    _c(
+                      "div",
+                      { staticClass: "message-logo" },
+                      [
+                        _c("v-img", {
+                          staticClass: "v-image__rounded",
+                          attrs: {
+                            src: "/images/placeholder.png",
+                            alt: "logo",
+                            "aspect-ratio": "1"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "message-text" }, [
+                      _c(
+                        "div",
+                        { staticClass: "brand-text white--text title" },
+                        [_vm._v("Welcome to")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "brand-name font-weight-thin display-3 white--text"
+                        },
+                        [_vm._v("Monoland Apps")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "brand-copy white--text text-xs-right" },
+                        [_vm._v("© Monoland 2019")]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          attrs: { color: "error" },
+          model: {
+            value: _vm.snackbar,
+            callback: function($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar"
+          }
+        },
+        [
+          _vm._v("\n        " + _vm._s(_vm.message) + "\n        "),
+          _c(
+            "v-btn",
+            {
+              attrs: { dark: "", flat: "" },
+              on: {
+                click: function($event) {
+                  _vm.snackbar = false
+                }
+              }
+            },
+            [_vm._v("Tutup")]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -7528,7 +7726,123 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "v-container",
+    { attrs: { "fill-height": "" } },
+    [
+      _c(
+        "v-layout",
+        { attrs: { "align-center": "", "justify-center": "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs12: "" } },
+            [
+              _c(
+                "v-form",
+                { attrs: { method: "POST", action: "/account/login" } },
+                [
+                  _c(
+                    "v-card",
+                    { staticClass: "v-card__login", attrs: { flat: "" } },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.token,
+                            expression: "token"
+                          }
+                        ],
+                        attrs: { type: "hidden", name: "_token" },
+                        domProps: { value: _vm.token },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.token = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-text",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              label: "Pengguna",
+                              name: "email",
+                              color: "cyan",
+                              autocomplete: "off"
+                            },
+                            model: {
+                              value: _vm.email,
+                              callback: function($$v) {
+                                _vm.email = $$v
+                              },
+                              expression: "email"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              label: "Katasandi",
+                              name: "password",
+                              color: "cyan",
+                              "append-icon": _vm.hidden
+                                ? "visibility_off"
+                                : "visibility",
+                              type: _vm.hidden ? "password" : "text"
+                            },
+                            on: {
+                              "click:append": function($event) {
+                                _vm.hidden = !_vm.hidden
+                              }
+                            },
+                            model: {
+                              value: _vm.password,
+                              callback: function($$v) {
+                                _vm.password = $$v
+                              },
+                              expression: "password"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { color: "cyan", type: "submit", flat: "" }
+                            },
+                            [_vm._v("masuk")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -10770,7 +11084,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (new Router({
+/* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
     path: '/',
     component: _scripts_pages_frontend__WEBPACK_IMPORTED_MODULE_2__["Base"],

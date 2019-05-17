@@ -9,7 +9,7 @@ Route::prefix('account')->middleware('auth')->group(function(){
 });
 
 Route::middleware('guest')->group(function() {
-    Route::get('/', 'Monoland\AppsController@landing')->name('login');
+    Route::get('/', 'Monoland\AppsController@frontend')->name('login');
 });
 
 Route::prefix('backend')->middleware('auth')->group(function(){

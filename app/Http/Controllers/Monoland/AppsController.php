@@ -7,9 +7,9 @@ use App\Http\Controllers\Controller;
 
 class AppsController extends Controller
 {
-    public function landing()
+    public function frontend()
     {
-        return view('default', ['pagemode' => 'landing']);
+        return view('default', ['pagemode' => 'frontend']);
     }
 
     public function backend()

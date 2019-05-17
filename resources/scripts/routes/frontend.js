@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 import * as frontend from '@scripts/pages/frontend';
 
-export default new Router({
+export default new VueRouter({
     routes: [
         { path: '/', component: frontend.Base, children: [
             { path: '', redirect: { name: 'login' }},

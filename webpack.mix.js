@@ -10,6 +10,6 @@ mix.webpackConfig({
 });
 
 mix.js('resources/scripts/frontend.js', 'public/scripts')
-mix.stylus('resources/styles/frontend/main.styl', 'public/styles');
+mix.stylus('resources/styles/frontend/main.styl', 'public/styles/frontend.css');
 
 mix.extract(['vue', 'vuetify']);
