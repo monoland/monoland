@@ -8,7 +8,7 @@
 import WebFontLoader from 'webfontloader';
 
 export default {
-    name: 'monoland-base',
+    name: 'mono-apps',
 
     data:() => ({
         fontLoaded: false,
