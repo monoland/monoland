@@ -1,6 +1,8 @@
 {
+    "/scripts/backend.js": "/scripts/backend.js",
     "/scripts/frontend.js": "/scripts/frontend.js",
     "/styles/frontend.css": "/styles/frontend.css",
+    "/styles/backend.css": "/styles/backend.css",
     "/scripts/manifest.js": "/scripts/manifest.js",
     "/scripts/vendor.js": "/scripts/vendor.js"
 }

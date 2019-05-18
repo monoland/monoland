@@ -39,11 +39,17 @@ export default {
 
     data:() => ({
         snackbar: false,
-        message: 'pengguna dan atau katasandi tidak valid!'
+        message: null
     }),
 
     mounted() {
         if (window.errors) {
+            if (window.errors.hasOwnProperty('email')) {
+                this.message = window.errors.email[0];
+            } else {
+                this.message = window.errors.password[0];
+            }
+
             this.snackbar = true;
         }   
     }
