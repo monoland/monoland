@@ -10591,6 +10591,9 @@ table.v-table tfoot tr td {
   -webkit-transform: translateY(100%);
           transform: translateY(100%);
 }
+.application.theme--light {
+  background: #f5f5f5;
+}
 .v-btn--simple {
   margin: 4px;
   padding: 0;
@@ -10614,6 +10617,9 @@ table.v-table tfoot tr td {
 .v-card--offset {
   margin-top: -24px;
 }
+.v-card__text {
+  padding: 16px 24px;
+}
 .v-datatable__message {
   display: flex;
   align-items: center;
@@ -10622,6 +10628,9 @@ table.v-table tfoot tr td {
 }
 .v-datatable__text {
   padding-left: 8px;
+}
+.v-datatable thead tr:not(.v-datatable__progress) {
+  height: 48px !important;
 }
 .v-datatable thead tr th:first-child {
   width: 80px;
@@ -10644,6 +10653,10 @@ table.v-table tfoot tr td {
 .v-datatable tbody tr td:first-child + td {
   padding-left: 0;
 }
+.v-dialog {
+  box-shadow: none;
+  overflow-y: visible;
+}
 .v-header {
   transition: none;
   width: 100%;
@@ -10653,7 +10666,7 @@ table.v-table tfoot tr td {
   display: flex;
   height: 64px;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 24px 0 16px;
 }
 .v-list.v-list--navdraw {
   color: #424242;
@@ -10726,4 +10739,7 @@ table.v-table tfoot tr td {
 .v-page--foot__content {
   display: flex;
   padding: 12px 24px;
+}
+.v-text-field > .v-input__control > .v-input__slot:after {
+  border-width: 0.5px 0 0.5px 0;
 }

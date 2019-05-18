@@ -1,7 +1,11 @@
 <template>
     <div class="v-header">
         <div class="v-header__content">
-            <div class="v-header__title title font-weight-light">{{ title }}</div>
+            <v-btn class="ma-0" icon>
+                <v-icon>menu</v-icon>
+            </v-btn>
+
+            <div class="v-header__title title font-weight-light ml-2">{{ title }}</div>
 
             <v-spacer></v-spacer>
             
