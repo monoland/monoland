@@ -34,8 +34,9 @@
                                     ></v-checkbox>
                                 </td>
                                 <td>{{ props.item.id }}</td>
-                                <td>{{ props.item.district }}</td>
-                                <td>{{ props.item.summary }}</td>
+                                <td>{{ props.item.name }}</td>
+                                <td>{{ props.item.email }}</td>
+                                <td>{{ props.item.authorization }}</td>
                             </tr>
                         </template>
                         
@@ -86,14 +87,16 @@ export default {
             { text: 'Id', value: 'id' },
             { text: 'Name', value: 'name' },
             { text: 'Email', value: 'email' },
-            { text: 'Level', value: 'authorization', class: 'date-updated' }
+            { text: 'Otentikasi', value: 'authorization', class: 'date-updated' }
         ],
 
         authorization: [
-            { text: 'Administrator', value: 'administrator' },
-            { text: 'Pemohon', value: 'submit' },
-            { text: 'Penilai', value: 'corrector' },
-        ]
+            { text: 'Pemohon', value: 'submission' },
+            { text: 'Penilai', value: 'evaluator' },
+            { text: 'Penetap', value: 'approval' },
+        ],
+
+        dataUrl: '/api/users'
     })
 };
 </script>

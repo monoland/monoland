@@ -58,6 +58,10 @@ export const FormProvider = {
         }
     },
 
+    mounted() {
+        this.fetch(this.dataUrl, this.tablePaging);
+    },
+
     methods: {
         newRecord: function() {},
 

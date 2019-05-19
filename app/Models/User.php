@@ -37,4 +37,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Scope for filter
+     */
+    public function scopeFilterOn($query, $request)
+    {
+        $sortaz = $request->descending === 'true' ? 'desc' : 'asc';
+        $sortby = $request->has('sortBy') ? $request->sortBy : null;
+        $filter = $request->has('filter') ? $request->filter : null;
+
+        $mixquery = $query;
+
+        if ($filter) {
+            $mixquery = $mixquery->where('name', 'like', "%{$filter}%");
+        }
+
+        if ($sortby) {
+            $mixquery = $mixquery->orderBy($sortby, $sortaz);
+        }
+
+        return $mixquery;
+    }
 }

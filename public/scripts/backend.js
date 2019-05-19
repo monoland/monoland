@@ -1980,6 +1980,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'page-user',
@@ -1996,20 +1997,21 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Email',
         value: 'email'
       }, {
-        text: 'Level',
+        text: 'Otentikasi',
         value: 'authorization',
         "class": 'date-updated'
       }],
       authorization: [{
-        text: 'Administrator',
-        value: 'administrator'
-      }, {
         text: 'Pemohon',
-        value: 'submit'
+        value: 'submission'
       }, {
         text: 'Penilai',
-        value: 'corrector'
-      }]
+        value: 'evaluator'
+      }, {
+        text: 'Penetap',
+        value: 'approval'
+      }],
+      dataUrl: '/api/users'
     };
   }
 });
@@ -2098,6 +2100,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'v-dialog-form',
   props: {
@@ -2108,6 +2115,10 @@ __webpack_require__.r(__webpack_exports__);
     describe: {
       type: String,
       "default": 'here is describe for this widget'
+    },
+    icon: {
+      type: String,
+      "default": 'dashboard'
     },
     width: {
       type: String,
@@ -2234,7 +2245,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    this.$auth.token();
+    this.token = this.$auth.token();
     this.user = this.$auth.getUser();
 
     if (!this.user) {
@@ -9203,9 +9214,13 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(props.item.id))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(props.item.district))]),
+                                _c("td", [_vm._v(_vm._s(props.item.name))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(props.item.summary))])
+                                _c("td", [_vm._v(_vm._s(props.item.email))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(props.item.authorization))
+                                ])
                               ]
                             )
                           ]
@@ -9412,21 +9427,33 @@ var render = function() {
               }
             },
             [
-              _c("v-card-text", [
+              _c("div", { staticClass: "v-sheet__wrap" }, [
                 _c(
                   "div",
-                  { staticClass: "title font-weight-light mb-2 white--text" },
-                  [_vm._v(_vm._s(_vm.title))]
+                  { staticClass: "v-sheet__icon" },
+                  [
+                    _c("v-icon", { attrs: { color: "blue-grey" } }, [
+                      _vm._v(_vm._s(_vm.icon))
+                    ])
+                  ],
+                  1
                 ),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "caption font-weight-light white--text" },
-                  [_vm._v(_vm._s(_vm.describe))]
-                )
+                _c("div", { staticClass: "v-sheet__text" }, [
+                  _c(
+                    "div",
+                    { staticClass: "title font-weight-light mb-2 white--text" },
+                    [_vm._v(_vm._s(_vm.title))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "caption font-weight-light white--text" },
+                    [_vm._v(_vm._s(_vm.describe))]
+                  )
+                ])
               ])
-            ],
-            1
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -12599,7 +12626,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _mixins_AuthProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixins/AuthProvider */ "./resources/scripts/mixins/AuthProvider.js");
-/* harmony import */ var _parts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parts */ "./resources/scripts/parts/index.js");
+/* harmony import */ var _parts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parts */ "./resources/scripts/parts/index.js");
 /* harmony import */ var _pages_Monoland_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Monoland.vue */ "./resources/scripts/pages/Monoland.vue");
 /* harmony import */ var _routes_backend__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./routes/backend */ "./resources/scripts/routes/backend.js");
 
@@ -12609,8 +12636,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_1___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_mixins_AuthProvider__WEBPACK_IMPORTED_MODULE_2__["AuthProvider"]);
 
-Object.keys(_parts__WEBPACK_IMPORTED_MODULE_6__).forEach(function (part) {
-  vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(_parts__WEBPACK_IMPORTED_MODULE_6__[part].name, _parts__WEBPACK_IMPORTED_MODULE_6__[part]);
+Object.keys(_parts__WEBPACK_IMPORTED_MODULE_3__).forEach(function (part) {
+  vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(_parts__WEBPACK_IMPORTED_MODULE_3__[part].name, _parts__WEBPACK_IMPORTED_MODULE_3__[part]);
 });
 
 
@@ -12798,6 +12825,9 @@ var FormProvider = {
     if (this.record.hasOwnProperty(this.primaryId)) {
       this.dataId = this.record.id;
     }
+  },
+  mounted: function mounted() {
+    this.fetch(this.dataUrl, this.tablePaging);
   },
   methods: {
     newRecord: function newRecord() {},

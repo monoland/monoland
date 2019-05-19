@@ -70,7 +70,8 @@ export default {
     }),
 
     mounted() {
-        this.$auth.token();
+        this.token = this.$auth.token();
+
 
         this.user = this.$auth.getUser();
 

@@ -2,10 +2,15 @@
     <v-dialog persistent :value="state" :max-width="width">
         <v-card class="mt-4 mx-auto elevation-9">
             <v-sheet class="v-card--sheet mx-auto" color="blue-grey" elevation="7" max-width="calc(100% - 48px)">
-                <v-card-text>
-                <div class="title font-weight-light mb-2 white--text">{{ title }}</div>
-                <div class="caption font-weight-light white--text">{{ describe }}</div>
-                </v-card-text>
+                <div class="v-sheet__wrap">
+                    <div class="v-sheet__icon">
+                        <v-icon color="blue-grey">{{ icon }}</v-icon>
+                    </div>
+                    <div class="v-sheet__text">
+                        <div class="title font-weight-light mb-2 white--text">{{ title }}</div>
+                        <div class="caption font-weight-light white--text">{{ describe }}</div>
+                    </div>
+                </div>
             </v-sheet>
 
             <v-card-text class="v-card--offset pt-0 pb-1">
@@ -38,6 +43,11 @@ export default {
         describe: {
             type: String,
             default: 'here is describe for this widget'
+        },
+
+        icon: {
+            type: String,
+            default: 'dashboard'
         },
 
         width: {
