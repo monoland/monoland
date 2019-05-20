@@ -4,13 +4,14 @@
             <v-btn-simple :disabled="disabled.add" tips="tambah" icon="add" @click="openNewForm"></v-btn-simple>
             <v-btn-simple :disabled="disabled.link" tips="link" icon="folder"></v-btn-simple>
             <v-btn-simple :disabled="disabled.edit" tips="edit" icon="edit"></v-btn-simple>
-            <v-btn-simple :disabled="disabled.delete" tips="hapus" icon="delete"></v-btn-simple>
+            <v-btn-simple :disabled="disabled.delete" tips="hapus" icon="delete" @click="openDelete"></v-btn-simple>
             <v-btn-simple :disabled="disabled.refresh" tips="refresh" icon="refresh"></v-btn-simple>
             <v-btn-simple :disabled="disabled.find" tips="pencarian" icon="search"></v-btn-simple>
         </v-header>
         
         <div class="v-page--body">
             <div class="v-page--body__content">
+                <!-- table -->
                 <v-widget title="Tabel Pengguna" describe="Daftar seluruh pengguna pada aplikasi">
                     <v-data-table v-model="selected"
                         :headers="headers"
@@ -50,6 +51,7 @@
                     </v-data-table>
                 </v-widget>
 
+                <!-- form -->
                 <v-dialog-form 
                     title="Pengguna" 
                     describe="Form input/edit pengguna" 
@@ -78,6 +80,14 @@
                         ></v-select>
                     </v-flex>
                 </v-dialog-form>
+
+                <!-- delete -->
+                <v-dialog-delete 
+                    @cancel="closeDelete" 
+                    @delete="postDelete"
+                    :records="selected"
+                    v-model="form.onDelete"
+                ></v-dialog-delete>
             </div>
         </div>
     </div>

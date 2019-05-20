@@ -10621,6 +10621,22 @@ table.v-table tfoot tr td {
 .v-card__text {
   padding: 16px 24px;
 }
+.v-card__delete {
+  margin-top: 36px;
+}
+.v-card__delete--head {
+  position: relative;
+  top: -36px;
+  z-index: 1;
+}
+.v-card__delete--icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+}
 .v-datatable__message {
   display: flex;
   align-items: center;

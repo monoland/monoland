@@ -89,4 +89,45 @@ class User extends Authenticatable
             abort(500, $e->getMessage());
         }
     }
+
+    /**
+     * Destroy
+     */
+    public static function destroyRecord($model)
+    {
+        DB::beginTransaction();
+
+        try {
+            $model->delete();
+
+            DB::commit();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            abort(500, $e->getMessage());
+        }
+    }
+
+    /**
+     * Bulks
+     */
+    public static function bulksRecord($request, $model = null)
+    {
+        DB::beginTransaction();
+
+        try {
+            $bulks = array_column($request->all(), 'id');
+            $rests = (new static)->whereIn('id', $bulks)->delete();
+
+            DB::commit();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            abort(500, $e->getMessage());
+        }
+    }
 }
