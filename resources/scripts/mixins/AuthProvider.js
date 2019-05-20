@@ -70,5 +70,45 @@ export const AuthProvider = {
                 });
             }
         });
+
+        // define error
+        let $error = {};
+
+        Object.defineProperty(Vue.prototype, '$error', {
+            get() {
+                return $error;
+            },
+
+            set(newval) {
+                if (newval.hasOwnProperty('response')) {
+                    let { message, errors } = newval.response.data;
+                    let status = newval.response.status;
+
+                    if (status === 401) {
+                        $auth.signout();
+                    } else if (errors) {
+                        $error = {
+                            type: 'error',
+                            text: message,
+                            show: true
+                        };
+
+                        this.$root.message = $error;
+                    }
+                } else if (newval.hasOwnProperty('message')) {
+                    $error = {
+                        type: 'error',
+                        text: newval.message,
+                        show: true
+                    };
+
+                    this.$root.message = $error;
+                }
+
+                if (process.env.NODE_ENV === 'production') {
+                    window.console.clear();
+                }
+            }
+        });
     }
 };

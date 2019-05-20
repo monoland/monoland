@@ -1822,20 +1822,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                _context.prev = 0;
+                _context.next = 3;
                 return this.$http.get('/api/menus');
 
-              case 2:
+              case 3:
                 menus = _context.sent;
                 this.menus = menus.data;
                 this.$auth.setMenus(menus.data);
+                _context.next = 11;
+                break;
 
-              case 5:
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+                this.$error = _context.t0;
+
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[0, 8]]);
       }));
 
       function fetchMenus() {
@@ -1981,6 +1989,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'page-user',
@@ -1988,9 +2005,6 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       headers: [{
-        text: 'Id',
-        value: 'id'
-      }, {
         text: 'Name',
         value: 'name'
       }, {
@@ -1998,7 +2012,10 @@ __webpack_require__.r(__webpack_exports__);
         value: 'email'
       }, {
         text: 'Otentikasi',
-        value: 'authorization',
+        value: 'authorization'
+      }, {
+        text: 'Updated',
+        value: 'updated_at',
         "class": 'date-updated'
       }],
       authorization: [{
@@ -2013,6 +2030,16 @@ __webpack_require__.r(__webpack_exports__);
       }],
       dataUrl: '/api/users'
     };
+  },
+  methods: {
+    newRecord: function newRecord() {
+      this.record = {
+        id: null,
+        name: null,
+        email: null,
+        authorization: null
+      };
+    }
   }
 });
 
@@ -2262,20 +2289,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                _context.prev = 0;
+                _context.next = 3;
                 return this.$http.get('/api/user');
 
-              case 2:
+              case 3:
                 user = _context.sent;
                 this.user = user.data;
                 this.$auth.setUser(user.data);
+                _context.next = 11;
+                break;
 
-              case 5:
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+                this.$error = _context.t0;
+
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[0, 8]]);
       }));
 
       function fetchUser() {
@@ -9120,32 +9155,40 @@ var render = function() {
         { attrs: { title: "Pengguna" } },
         [
           _c("v-btn-simple", {
-            attrs: { disabled: false, tips: "tambah", icon: "add" },
-            on: {
-              click: function($event) {
-                _vm.form.onShow = true
-              }
+            attrs: { disabled: _vm.disabled.add, tips: "tambah", icon: "add" },
+            on: { click: _vm.openNewForm }
+          }),
+          _vm._v(" "),
+          _c("v-btn-simple", {
+            attrs: { disabled: _vm.disabled.link, tips: "link", icon: "folder" }
+          }),
+          _vm._v(" "),
+          _c("v-btn-simple", {
+            attrs: { disabled: _vm.disabled.edit, tips: "edit", icon: "edit" }
+          }),
+          _vm._v(" "),
+          _c("v-btn-simple", {
+            attrs: {
+              disabled: _vm.disabled.delete,
+              tips: "hapus",
+              icon: "delete"
             }
           }),
           _vm._v(" "),
           _c("v-btn-simple", {
-            attrs: { disabled: true, tips: "link", icon: "folder" }
+            attrs: {
+              disabled: _vm.disabled.refresh,
+              tips: "refresh",
+              icon: "refresh"
+            }
           }),
           _vm._v(" "),
           _c("v-btn-simple", {
-            attrs: { disabled: true, tips: "edit", icon: "edit" }
-          }),
-          _vm._v(" "),
-          _c("v-btn-simple", {
-            attrs: { disabled: true, tips: "hapus", icon: "delete" }
-          }),
-          _vm._v(" "),
-          _c("v-btn-simple", {
-            attrs: { disabled: false, tips: "refresh", icon: "refresh" }
-          }),
-          _vm._v(" "),
-          _c("v-btn-simple", {
-            attrs: { disabled: false, tips: "pencarian", icon: "search" }
+            attrs: {
+              disabled: _vm.disabled.find,
+              tips: "pencarian",
+              icon: "search"
+            }
           })
         ],
         1
@@ -9212,14 +9255,16 @@ var render = function() {
                                   1
                                 ),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(props.item.id))]),
-                                _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(props.item.name))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(props.item.email))]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(_vm._s(props.item.authorization))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(props.item.updated_at))
                                 ])
                               ]
                             )
@@ -9275,11 +9320,7 @@ var render = function() {
                   title: "Pengguna",
                   describe: "Form input/edit pengguna"
                 },
-                on: {
-                  cancel: function($event) {
-                    _vm.form.onShow = false
-                  }
-                },
+                on: { cancel: _vm.closeForm, submit: _vm.submitForm },
                 model: {
                   value: _vm.form.onShow,
                   callback: function($$v) {
@@ -9294,11 +9335,25 @@ var render = function() {
                   { attrs: { xs12: "" } },
                   [
                     _c("v-text-field", {
-                      attrs: { label: "Nama Pengguna", color: "blue-grey" }
+                      attrs: { label: "Nama Pengguna", color: "blue-grey" },
+                      model: {
+                        value: _vm.record.name,
+                        callback: function($$v) {
+                          _vm.$set(_vm.record, "name", $$v)
+                        },
+                        expression: "record.name"
+                      }
                     }),
                     _vm._v(" "),
                     _c("v-text-field", {
-                      attrs: { label: "Email Pengguna", color: "blue-grey" }
+                      attrs: { label: "Email Pengguna", color: "blue-grey" },
+                      model: {
+                        value: _vm.record.email,
+                        callback: function($$v) {
+                          _vm.$set(_vm.record, "email", $$v)
+                        },
+                        expression: "record.email"
+                      }
                     }),
                     _vm._v(" "),
                     _c("v-select", {
@@ -9306,6 +9361,13 @@ var render = function() {
                         items: _vm.authorization,
                         label: "Otentikasi",
                         color: "blue-grey"
+                      },
+                      model: {
+                        value: _vm.record.authorization,
+                        callback: function($$v) {
+                          _vm.$set(_vm.record, "authorization", $$v)
+                        },
+                        expression: "record.authorization"
                       }
                     })
                   ],
@@ -12749,6 +12811,41 @@ var AuthProvider = {
           headers: headers
         });
       }
+    }); // define error
+
+    var $error = {};
+    Object.defineProperty(Vue.prototype, '$error', {
+      get: function get() {
+        return $error;
+      },
+      set: function set(newval) {
+        if (newval.hasOwnProperty('response')) {
+          var _newval$response$data = newval.response.data,
+              message = _newval$response$data.message,
+              errors = _newval$response$data.errors;
+          var status = newval.response.status;
+
+          if (status === 401) {
+            $auth.signout();
+          } else if (errors) {
+            $error = {
+              type: 'error',
+              text: message,
+              show: true
+            };
+            this.$root.message = $error;
+          }
+        } else if (newval.hasOwnProperty('message')) {
+          $error = {
+            type: 'error',
+            text: newval.message,
+            show: true
+          };
+          this.$root.message = $error;
+        }
+
+        if (false) {}
+      }
     });
   }
 };
@@ -12800,10 +12897,11 @@ var FormProvider = {
       ctrlState: 'default',
       disabled: {
         add: false,
-        "delete": false,
-        edit: false,
+        "delete": true,
+        edit: true,
         find: false,
-        link: false
+        link: true,
+        refresh: false
       },
       form: {
         onShow: false,
@@ -12978,7 +13076,7 @@ var FormProvider = {
       this.form.onShow = false;
       this.form.onImport = true;
     },
-    openAddnew: function openAddnew() {
+    openNewForm: function openNewForm() {
       this.newRecord();
       this.form.onEdit = false;
       this.form.onShow = true;

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\UserResource;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -58,5 +61,32 @@ class User extends Authenticatable
         }
 
         return $mixquery;
+    }
+
+    /**
+     * Store
+     */
+    public static function storeRecord($request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $model = new static;
+            $model->name = $request->name;
+            $model->email = $request->email;
+            $model->authorization = $request->authorization;
+            $model->password = Hash::make('12345678');
+            $model->save();
+
+            DB::commit();
+
+            
+
+            return new UserResource($model);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            abort(500, $e->getMessage());
+        }
     }
 }

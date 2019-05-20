@@ -10840,6 +10840,41 @@ var AuthProvider = {
           headers: headers
         });
       }
+    }); // define error
+
+    var $error = {};
+    Object.defineProperty(Vue.prototype, '$error', {
+      get: function get() {
+        return $error;
+      },
+      set: function set(newval) {
+        if (newval.hasOwnProperty('response')) {
+          var _newval$response$data = newval.response.data,
+              message = _newval$response$data.message,
+              errors = _newval$response$data.errors;
+          var status = newval.response.status;
+
+          if (status === 401) {
+            $auth.signout();
+          } else if (errors) {
+            $error = {
+              type: 'error',
+              text: message,
+              show: true
+            };
+            this.$root.message = $error;
+          }
+        } else if (newval.hasOwnProperty('message')) {
+          $error = {
+            type: 'error',
+            text: newval.message,
+            show: true
+          };
+          this.$root.message = $error;
+        }
+
+        if (false) {}
+      }
     });
   }
 };

@@ -28,10 +28,11 @@ export const FormProvider = {
 
         disabled: {
             add: false,
-            delete: false,
-            edit: false,
+            delete: true,
+            edit: true,
             find: false,
-            link: false
+            link: true,
+            refresh: false
         },
 
         form: {
@@ -146,7 +147,7 @@ export const FormProvider = {
             this.form.onImport = true;
         },
 
-        openAddnew: function() {
+        openNewForm: function() {
             this.newRecord();
             this.form.onEdit = false;
             this.form.onShow = true;

@@ -71,9 +71,13 @@ export default {
 
     methods: {
         fetchMenus: async function() {
-            let menus = await this.$http.get('/api/menus');
-            this.menus = menus.data;
-            this.$auth.setMenus(menus.data);
+            try {
+                let menus = await this.$http.get('/api/menus');
+                this.menus = menus.data;
+                this.$auth.setMenus(menus.data);    
+            } catch (error) {
+                this.$error = error;
+            }
         }
     }
 };

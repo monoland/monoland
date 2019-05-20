@@ -1,12 +1,12 @@
 <template>
     <div class="v-page__wrap">
         <v-header title="Pengguna">
-            <v-btn-simple :disabled="false" tips="tambah" icon="add" @click="form.onShow = true"></v-btn-simple>
-            <v-btn-simple :disabled="true" tips="link" icon="folder"></v-btn-simple>
-            <v-btn-simple :disabled="true" tips="edit" icon="edit"></v-btn-simple>
-            <v-btn-simple :disabled="true" tips="hapus" icon="delete"></v-btn-simple>
-            <v-btn-simple :disabled="false" tips="refresh" icon="refresh"></v-btn-simple>
-            <v-btn-simple :disabled="false" tips="pencarian" icon="search"></v-btn-simple>
+            <v-btn-simple :disabled="disabled.add" tips="tambah" icon="add" @click="openNewForm"></v-btn-simple>
+            <v-btn-simple :disabled="disabled.link" tips="link" icon="folder"></v-btn-simple>
+            <v-btn-simple :disabled="disabled.edit" tips="edit" icon="edit"></v-btn-simple>
+            <v-btn-simple :disabled="disabled.delete" tips="hapus" icon="delete"></v-btn-simple>
+            <v-btn-simple :disabled="disabled.refresh" tips="refresh" icon="refresh"></v-btn-simple>
+            <v-btn-simple :disabled="disabled.find" tips="pencarian" icon="search"></v-btn-simple>
         </v-header>
         
         <div class="v-page--body">
@@ -33,10 +33,10 @@
                                         primary hide-details
                                     ></v-checkbox>
                                 </td>
-                                <td>{{ props.item.id }}</td>
                                 <td>{{ props.item.name }}</td>
                                 <td>{{ props.item.email }}</td>
                                 <td>{{ props.item.authorization }}</td>
+                                <td>{{ props.item.updated_at }}</td>
                             </tr>
                         </template>
                         
@@ -50,22 +50,31 @@
                     </v-data-table>
                 </v-widget>
 
-                <v-dialog-form title="Pengguna" describe="Form input/edit pengguna" v-model="form.onShow" @cancel="form.onShow = false">
+                <v-dialog-form 
+                    title="Pengguna" 
+                    describe="Form input/edit pengguna" 
+                    v-model="form.onShow" 
+                    @cancel="closeForm"
+                    @submit="submitForm"
+                >
                     <v-flex xs12>
                         <v-text-field
                             label="Nama Pengguna"
                             color="blue-grey"
+                            v-model="record.name"
                         ></v-text-field>
 
                         <v-text-field
                             label="Email Pengguna"
                             color="blue-grey"
+                            v-model="record.email"
                         ></v-text-field>
 
                         <v-select
                             :items="authorization"
                             label="Otentikasi"
                             color="blue-grey"
+                            v-model="record.authorization"
                         ></v-select>
                     </v-flex>
                 </v-dialog-form>
@@ -84,10 +93,10 @@ export default {
 
     data:() => ({
         headers: [
-            { text: 'Id', value: 'id' },
             { text: 'Name', value: 'name' },
             { text: 'Email', value: 'email' },
-            { text: 'Otentikasi', value: 'authorization', class: 'date-updated' }
+            { text: 'Otentikasi', value: 'authorization' },
+            { text: 'Updated', value: 'updated_at', class: 'date-updated' }
         ],
 
         authorization: [
@@ -97,6 +106,17 @@ export default {
         ],
 
         dataUrl: '/api/users'
-    })
+    }),
+
+    methods: {
+        newRecord: function() {
+            this.record = {
+                id: null,
+                name: null,
+                email: null,
+                authorization: null
+            };
+        }
+    }
 };
 </script>

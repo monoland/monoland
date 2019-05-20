@@ -82,9 +82,13 @@ export default {
 
     methods: {
         fetchUser: async function() {
-            let user = await this.$http.get('/api/user');
-            this.user = user.data;
-            this.$auth.setUser(user.data);
+            try {
+                let user = await this.$http.get('/api/user');
+                this.user = user.data;
+                this.$auth.setUser(user.data);    
+            } catch (error) {
+                this.$error = error;   
+            }
         },
 
         signout: function() {
