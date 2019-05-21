@@ -1801,8 +1801,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: 'page-base',
   data: function data() {
     return {
-      menus: {}
+      menus: {},
+      theme: null
     };
+  },
+  created: function created() {
+    this.theme = this.$auth.theme() + ' white--text';
   },
   mounted: function mounted() {
     this.token = this.$auth.token();
@@ -1893,6 +1897,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2181,11 +2209,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      state: false
+      state: false,
+      theme: null
     };
   },
   created: function created() {
     this.state = this.value;
+    this.theme = this.$auth.theme();
   },
   methods: {
     onSubmit: function onSubmit() {
@@ -2276,11 +2306,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      state: false
+      state: false,
+      theme: null
     };
   },
   created: function created() {
     this.state = this.value;
+    this.theme = this.$auth.theme();
   },
   methods: {
     onSubmit: function onSubmit() {
@@ -2441,8 +2473,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 user = _context.sent;
-                this.user = user.data;
                 this.$auth.setUser(user.data);
+                this.user = this.$auth.getUser();
                 _context.next = 11;
                 break;
 
@@ -2522,6 +2554,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'v-widget',
   props: {
@@ -2532,7 +2569,19 @@ __webpack_require__.r(__webpack_exports__);
     describe: {
       type: String,
       "default": 'here is describe for this widget'
+    },
+    width: {
+      type: String,
+      "default": '100%'
     }
+  },
+  data: function data() {
+    return {
+      theme: null
+    };
+  },
+  created: function created() {
+    this.theme = this.$auth.theme();
   }
 });
 
@@ -9124,7 +9173,7 @@ var render = function() {
                   menu.type === "item"
                     ? _c(
                         "v-list-tile",
-                        { attrs: { to: menu.to } },
+                        { attrs: { "active-class": _vm.theme, to: menu.to } },
                         [
                           _c(
                             "v-list-tile-action",
@@ -9309,10 +9358,68 @@ var render = function() {
               {
                 attrs: {
                   title: "Profil Pengguna",
-                  describe: "Informasi pengguna aktif"
+                  describe: "Informasi pengguna aktif",
+                  width: "650px"
                 }
               },
-              [_vm._v("\n                lorem\n            ")]
+              [
+                _c(
+                  "v-container",
+                  {
+                    staticClass: "px-0 pb-0 pt-2",
+                    attrs: { "grid-list-md": "" }
+                  },
+                  [
+                    _c(
+                      "v-layout",
+                      { attrs: { wrap: "" } },
+                      [
+                        _c(
+                          "v-flex",
+                          { attrs: { md12: "" } },
+                          [
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "Nama Pengguna",
+                                color: "blue-grey"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "Alamat Email",
+                                color: "blue-grey"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                label: "Warna Thema",
+                                color: "blue-grey"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "template",
+                  { slot: "actions" },
+                  [
+                    _c("v-btn", { attrs: { color: "blue-grey", flat: "" } }, [
+                      _vm._v("update")
+                    ])
+                  ],
+                  1
+                )
+              ],
+              2
             )
           ],
           1
@@ -9703,7 +9810,7 @@ var render = function() {
             {
               staticClass: "v-card--sheet mx-auto",
               attrs: {
-                color: "deep-orange",
+                color: _vm.theme,
                 elevation: "7",
                 "max-width": "calc(100% - 48px)"
               }
@@ -9714,7 +9821,7 @@ var render = function() {
                   "div",
                   { staticClass: "v-sheet__icon" },
                   [
-                    _c("v-icon", { attrs: { color: "deep-orange" } }, [
+                    _c("v-icon", { attrs: { color: _vm.theme } }, [
                       _vm._v("delete")
                     ])
                   ],
@@ -9752,7 +9859,7 @@ var render = function() {
               _c(
                 "v-btn",
                 {
-                  attrs: { color: "blue-grey", flat: "" },
+                  attrs: { color: _vm.theme, flat: "" },
                   on: { click: _vm.onSubmit }
                 },
                 [_vm._v(_vm._s(_vm.submitName))]
@@ -9761,7 +9868,7 @@ var render = function() {
               _c(
                 "v-btn",
                 {
-                  attrs: { color: "blue-grey", flat: "" },
+                  attrs: { color: _vm.theme, flat: "" },
                   on: { click: _vm.onCancel }
                 },
                 [_vm._v(_vm._s(_vm.cancelName))]
@@ -9811,7 +9918,7 @@ var render = function() {
             {
               staticClass: "v-card--sheet mx-auto",
               attrs: {
-                color: "blue-grey",
+                color: _vm.theme,
                 elevation: "7",
                 "max-width": "calc(100% - 48px)"
               }
@@ -9822,7 +9929,7 @@ var render = function() {
                   "div",
                   { staticClass: "v-sheet__icon" },
                   [
-                    _c("v-icon", { attrs: { color: "blue-grey" } }, [
+                    _c("v-icon", { attrs: { color: _vm.theme } }, [
                       _vm._v(_vm._s(_vm.icon))
                     ])
                   ],
@@ -9878,7 +9985,7 @@ var render = function() {
               _c(
                 "v-btn",
                 {
-                  attrs: { color: "blue-grey", flat: "" },
+                  attrs: { color: _vm.theme, flat: "" },
                   on: { click: _vm.onSubmit }
                 },
                 [_vm._v(_vm._s(_vm.submitName))]
@@ -9887,7 +9994,7 @@ var render = function() {
               _c(
                 "v-btn",
                 {
-                  attrs: { color: "blue-grey", flat: "" },
+                  attrs: { color: _vm.theme, flat: "" },
                   on: { click: _vm.onCancel }
                 },
                 [_vm._v(_vm._s(_vm.cancelName))]
@@ -10156,14 +10263,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
-    { staticClass: "mt-4 mx-auto" },
+    { staticClass: "mt-4 mx-auto", attrs: { width: _vm.width } },
     [
       _c(
         "v-sheet",
         {
           staticClass: "v-card--sheet mx-auto",
           attrs: {
-            color: "blue-grey",
+            color: _vm.theme,
             elevation: "7",
             "max-width": "calc(100% - 48px)"
           }
@@ -10191,7 +10298,9 @@ var render = function() {
         { staticClass: "v-card--offset pt-0 pb-1" },
         [_vm._t("default")],
         2
-      )
+      ),
+      _vm._v(" "),
+      _c("v-card-actions", [_c("v-spacer"), _vm._v(" "), _vm._t("actions")], 2)
     ],
     1
   )
@@ -13135,12 +13244,17 @@ function () {
   }, {
     key: "setUser",
     value: function setUser(params) {
-      this.store.set('user', params);
+      this.store.set('user', params.data);
     }
   }, {
     key: "getMenus",
     value: function getMenus() {
       return this.store.get('menus');
+    }
+  }, {
+    key: "theme",
+    value: function theme() {
+      return this.store.get('user').theme;
     }
   }, {
     key: "setMenus",

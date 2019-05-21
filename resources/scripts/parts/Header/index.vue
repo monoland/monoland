@@ -107,7 +107,6 @@ export default {
     mounted() {
         this.token = this.$auth.token();
 
-
         this.user = this.$auth.getUser();
 
         if (!this.user) {
@@ -119,8 +118,8 @@ export default {
         fetchUser: async function() {
             try {
                 let user = await this.$http.get('/api/user');
-                this.user = user.data;
                 this.$auth.setUser(user.data);    
+                this.user = this.$auth.getUser();
             } catch (error) {
                 this.$error = error;   
             }

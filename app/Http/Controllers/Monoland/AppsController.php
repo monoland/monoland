@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Monoland;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class AppsController extends Controller
 {
@@ -19,7 +20,7 @@ class AppsController extends Controller
 
     public function user(Request $request)
     {
-        return $request->user();
+        return new UserResource($request->user());
     }
 
     public function menus(Request $request)

@@ -10784,12 +10784,17 @@ function () {
   }, {
     key: "setUser",
     value: function setUser(params) {
-      this.store.set('user', params);
+      this.store.set('user', params.data);
     }
   }, {
     key: "getMenus",
     value: function getMenus() {
       return this.store.get('menus');
+    }
+  }, {
+    key: "theme",
+    value: function theme() {
+      return this.store.get('user').theme;
     }
   }, {
     key: "setMenus",

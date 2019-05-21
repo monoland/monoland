@@ -16,11 +16,15 @@ class Authenticate
     }
 
     setUser(params) {
-        this.store.set('user', params);
+        this.store.set('user', params.data);
     }
 
     getMenus() {
         return this.store.get('menus');
+    }
+
+    theme() {
+        return (this.store.get('user')).theme;
     }
 
     setMenus(params) {

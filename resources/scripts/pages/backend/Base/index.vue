@@ -3,7 +3,7 @@
         <v-navigation-drawer width="240" fixed app>
             <v-list class="v-list--navdraw">
                 <template v-for="(menu, index) in menus">
-                    <v-list-tile :to="menu.to" v-if="menu.type === 'item'">
+                    <v-list-tile :active-class="theme" :to="menu.to" v-if="menu.type === 'item'">
                         <v-list-tile-action><v-icon>{{ menu.icon }}</v-icon></v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title>{{ menu.text }}</v-list-tile-title>
@@ -56,8 +56,13 @@ export default {
     name: 'page-base',
 
     data:() => ({
-        menus: {}
+        menus: {},
+        theme: null
     }),
+
+    created() {
+        this.theme = this.$auth.theme() + ' white--text';
+    },
 
     mounted() {
         this.token = this.$auth.token();

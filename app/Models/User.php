@@ -78,9 +78,7 @@ class User extends Authenticatable
             $model->password = Hash::make('12345678');
             $model->save();
 
-            DB::commit();
-
-            
+            DB::commit();            
 
             return new UserResource($model);
         } catch (\Exception $e) {
