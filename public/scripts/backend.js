@@ -1897,6 +1897,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'page-profile'
 });
@@ -1913,6 +1926,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scripts_mixins_FormProvider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @scripts/mixins/FormProvider */ "./resources/scripts/mixins/FormProvider.js");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2292,6 +2310,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var debounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! debounce */ "./node_modules/debounce/index.js");
+/* harmony import */ var debounce__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(debounce__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2349,22 +2369,53 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'v-header',
   props: {
     title: {
       type: String,
       "default": 'Untitled'
+    },
+    searchState: {
+      type: Boolean,
+      "default": false
+    },
+    value: {
+      type: String,
+      "default": null
     }
   },
   data: function data() {
     return {
+      search: null,
+      searchActive: false,
+      onFocus: false,
       token: null,
       user: {
         email: 'undefined email',
         name: 'undefined name'
       }
     };
+  },
+  created: function created() {
+    this.search = this.value;
   },
   mounted: function mounted() {
     this.token = this.$auth.token();
@@ -2416,6 +2467,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     signout: function signout() {
       this.$auth.signout();
+    },
+    bouncing: Object(debounce__WEBPACK_IMPORTED_MODULE_1__["debounce"])(function (e) {
+      this.search = e.target.value;
+      this.$emit('input', this.search);
+    }, 500),
+    focus: function focus() {
+      this.$refs.input.focus();
+    },
+    closeSearch: function closeSearch() {
+      this.search = null;
+      this.searchActive = false;
+      this.$emit('close');
+    }
+  },
+  watch: {
+    value: function value(newval) {
+      this.search = newval;
+    },
+    searchState: function searchState(newval) {
+      var _this = this;
+
+      this.searchActive = newval;
+      this.$nextTick(function () {
+        _this.$refs.input.focus();
+      });
     }
   }
 });
@@ -9217,7 +9293,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    { staticClass: "v-page__wrap" },
+    [
+      _c("v-header", { attrs: { title: "Profile" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "v-page--body" }, [
+        _c(
+          "div",
+          { staticClass: "v-page--body__content" },
+          [
+            _c(
+              "v-widget",
+              {
+                attrs: {
+                  title: "Profil Pengguna",
+                  describe: "Informasi pengguna aktif"
+                }
+              },
+              [_vm._v("\n                lorem\n            ")]
+            )
+          ],
+          1
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -9247,7 +9350,17 @@ var render = function() {
     [
       _c(
         "v-header",
-        { attrs: { title: "Pengguna" } },
+        {
+          attrs: { title: "Pengguna", "search-state": _vm.form.onFind },
+          on: { close: _vm.closeFinder },
+          model: {
+            value: _vm.searchText,
+            callback: function($$v) {
+              _vm.searchText = $$v
+            },
+            expression: "searchText"
+          }
+        },
         [
           _c("v-btn-simple", {
             attrs: { disabled: _vm.disabled.add, tips: "tambah", icon: "add" },
@@ -9255,11 +9368,8 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("v-btn-simple", {
-            attrs: { disabled: _vm.disabled.link, tips: "link", icon: "folder" }
-          }),
-          _vm._v(" "),
-          _c("v-btn-simple", {
-            attrs: { disabled: _vm.disabled.edit, tips: "edit", icon: "edit" }
+            attrs: { disabled: _vm.disabled.edit, tips: "edit", icon: "edit" },
+            on: { click: _vm.openUpdate }
           }),
           _vm._v(" "),
           _c("v-btn-simple", {
@@ -9276,7 +9386,8 @@ var render = function() {
               disabled: _vm.disabled.refresh,
               tips: "refresh",
               icon: "refresh"
-            }
+            },
+            on: { click: _vm.refresh }
           }),
           _vm._v(" "),
           _c("v-btn-simple", {
@@ -9284,7 +9395,8 @@ var render = function() {
               disabled: _vm.disabled.find,
               tips: "pencarian",
               icon: "search"
-            }
+            },
+            on: { click: _vm.openFind }
           })
         ],
         1
@@ -9815,6 +9927,58 @@ var render = function() {
   return _c("div", { staticClass: "v-header" }, [
     _c(
       "div",
+      {
+        staticClass: "v-header__search",
+        class: { "v-header__search--active": _vm.searchActive }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "v-search" },
+          [
+            _c("input", {
+              ref: "input",
+              staticClass: "v-search__text",
+              class: { "v-search__text--focus": _vm.onFocus },
+              attrs: { type: "text", placeholder: "Search Data" },
+              domProps: { value: _vm.search },
+              on: {
+                input: _vm.bouncing,
+                focus: function($event) {
+                  _vm.onFocus = true
+                },
+                blur: function($event) {
+                  _vm.onFocus = false
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-btn",
+              {
+                staticClass: "v-btn--simple ml-3",
+                attrs: { ripple: false },
+                nativeOn: {
+                  click: function($event) {
+                    return _vm.closeSearch($event)
+                  }
+                }
+              },
+              [
+                _c("v-icon", { attrs: { color: "grey darken-1" } }, [
+                  _vm._v("close")
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
       { staticClass: "v-header__content" },
       [
         _c(
@@ -9826,7 +9990,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "v-header__title title font-weight-light ml-2" },
+          { staticClass: "v-header__title title font-weight-light ml-3" },
           [_vm._v(_vm._s(_vm.title))]
         ),
         _vm._v(" "),
@@ -13198,11 +13362,9 @@ var FormProvider = {
       var _this = this;
 
       window.setTimeout(function () {
-        _this.table.loader = false;
-
-        if (_this.form.onFind) {
-          _this.$refs.elmInput.focus();
-        }
+        _this.table.loader = false; // if (this.form.onFind) {
+        //     this.$refs.elmInput.focus();
+        // }
       }, 500);
     },
     closeFinder: function closeFinder() {
@@ -13269,12 +13431,9 @@ var FormProvider = {
       this.fetch(this.dataUrl, this.tablePaging);
     },
     openFind: function openFind() {
-      var _this2 = this;
-
-      this.form.onFind = true;
-      this.$nextTick(function () {
-        _this2.$refs.elmInput.focus();
-      });
+      this.form.onFind = true; // this.$nextTick(() => {
+      //     this.$refs.elmInput.focus();
+      // });
     },
     submitForm: function submitForm() {
       this.form.onEdit ? this.postUpdate() : this.postAddnew();
@@ -13406,7 +13565,7 @@ var FormProvider = {
       var _postDelete = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-        var _this3 = this;
+        var _this2 = this;
 
         var response, index;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -13444,9 +13603,9 @@ var FormProvider = {
 
                 if (response) {
                   this.selected.forEach(function (record) {
-                    var index = _this3.records.indexOf(record);
+                    var index = _this2.records.indexOf(record);
 
-                    _this3.records.splice(index, 1);
+                    _this2.records.splice(index, 1);
                   });
                 }
 

@@ -84,9 +84,9 @@ export const FormProvider = {
             window.setTimeout(() => {
                 this.table.loader = false;
 
-                if (this.form.onFind) {
-                    this.$refs.elmInput.focus();
-                }
+                // if (this.form.onFind) {
+                //     this.$refs.elmInput.focus();
+                // }
             }, 500);
         },
 
@@ -122,9 +122,9 @@ export const FormProvider = {
         openFind: function() {
             this.form.onFind = true;
 
-            this.$nextTick(() => {
-                this.$refs.elmInput.focus();
-            });
+            // this.$nextTick(() => {
+            //     this.$refs.elmInput.focus();
+            // });
         },
 
         submitForm: function() {

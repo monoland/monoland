@@ -1,12 +1,17 @@
 <template>
     <div class="v-page__wrap">
-        <v-header title="Pengguna">
+        <v-header 
+            title="Pengguna" 
+            :search-state="form.onFind" 
+            v-model="searchText"
+            @close="closeFinder"
+        >
             <v-btn-simple :disabled="disabled.add" tips="tambah" icon="add" @click="openNewForm"></v-btn-simple>
-            <v-btn-simple :disabled="disabled.link" tips="link" icon="folder"></v-btn-simple>
-            <v-btn-simple :disabled="disabled.edit" tips="edit" icon="edit"></v-btn-simple>
+            <!-- <v-btn-simple :disabled="disabled.link" tips="link" icon="folder"></v-btn-simple> -->
+            <v-btn-simple :disabled="disabled.edit" tips="edit" icon="edit" @click="openUpdate"></v-btn-simple>
             <v-btn-simple :disabled="disabled.delete" tips="hapus" icon="delete" @click="openDelete"></v-btn-simple>
-            <v-btn-simple :disabled="disabled.refresh" tips="refresh" icon="refresh"></v-btn-simple>
-            <v-btn-simple :disabled="disabled.find" tips="pencarian" icon="search"></v-btn-simple>
+            <v-btn-simple :disabled="disabled.refresh" tips="refresh" icon="refresh" @click="refresh"></v-btn-simple>
+            <v-btn-simple :disabled="disabled.find" tips="pencarian" icon="search" @click="openFind"></v-btn-simple>
         </v-header>
         
         <div class="v-page--body">

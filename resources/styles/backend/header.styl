@@ -8,3 +8,23 @@
         height: 64px
         align-items: center
         padding: 0 24px 0 16px
+    
+    &__search
+        display: flex
+        position: absolute
+        align-items: center
+        justify-content: center
+        height: 64px
+        padding: 0 56px
+        width: 100%
+        opacity: 0
+        z-index: -1
+        transition: all 0.2s cubic-bezier(0.25, 0.8, 0.5, 1);
+        will-change: opacity, z-index
+
+        &--active
+            opacity: 1
+            z-index: 1
+
+            .v-search
+                width: 100%

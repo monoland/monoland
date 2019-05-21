@@ -1,11 +1,28 @@
 <template>
     <div class="v-header">
+        <div class="v-header__search" :class="{ 'v-header__search--active': searchActive }">
+            <div class="v-search">
+                <input ref="input" :value="search" 
+                    @input="bouncing" 
+                    @focus="onFocus = true"
+                    @blur="onFocus = false"
+                    class="v-search__text" 
+                    type="text" 
+                    placeholder="Search Data"
+                    :class="{ 'v-search__text--focus': onFocus }"
+                >
+                <v-btn class="v-btn--simple ml-3" :ripple="false" @click.native="closeSearch">
+                    <v-icon color="grey darken-1">close</v-icon>
+                </v-btn>
+            </div>
+        </div>
+
         <div class="v-header__content">
             <v-btn class="ma-0" icon>
                 <v-icon>menu</v-icon>
             </v-btn>
 
-            <div class="v-header__title title font-weight-light ml-2">{{ title }}</div>
+            <div class="v-header__title title font-weight-light ml-3">{{ title }}</div>
 
             <v-spacer></v-spacer>
             
@@ -48,8 +65,9 @@
     </div>
 </template>
 
-
 <script>
+import { debounce } from "debounce";
+
 export default {
     name: 'v-header',
 
@@ -57,10 +75,23 @@ export default {
         title: {
             type: String,
             default: 'Untitled'
+        },
+
+        searchState: {
+            type: Boolean,
+            default: false
+        },
+
+        value: {
+            type: String,
+            default: null
         }
     },
 
     data:() => ({
+        search: null,
+        searchActive: false,
+        onFocus: false,
         token: null,
 
         user: {
@@ -68,6 +99,10 @@ export default {
             name: 'undefined name'
         },
     }),
+
+    created() {
+        this.search = this.value;
+    },
 
     mounted() {
         this.token = this.$auth.token();
@@ -93,6 +128,35 @@ export default {
 
         signout: function() {
             this.$auth.signout();
+        },
+
+        bouncing: debounce(function(e) {
+            this.search = e.target.value;
+            this.$emit('input', this.search);
+        }, 500),
+
+        focus: function() {
+            this.$refs.input.focus();
+        },
+
+        closeSearch: function() {
+            this.search = null;
+            this.searchActive = false;
+            this.$emit('close');
+        }
+    },
+
+    watch: {
+        value: function(newval) {
+            this.search = newval;
+        },
+
+        searchState: function(newval) {
+            this.searchActive = newval;
+
+            this.$nextTick(() => {
+                this.$refs.input.focus();
+            });
         }
     }
 };
