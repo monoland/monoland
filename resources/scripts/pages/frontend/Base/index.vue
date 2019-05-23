@@ -9,7 +9,7 @@
                 <v-layout align-center justify-center>
                     <div class="message-box">
                         <div class="message-logo">
-                            <v-img class="v-image__rounded" src="/images/placeholder.png" alt="logo" aspect-ratio="1"></v-img>
+                            <v-img class="v-image__rounded" src="/images/logos-holder.png" alt="logo" aspect-ratio="1"></v-img>
                         </div>
 
                         <div class="message-text">

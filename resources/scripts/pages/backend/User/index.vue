@@ -58,6 +58,7 @@
 
                 <!-- form -->
                 <v-dialog-form 
+                    icon="people"
                     title="Pengguna" 
                     describe="Form input/edit pengguna" 
                     v-model="form.onShow" 

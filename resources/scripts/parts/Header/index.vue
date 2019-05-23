@@ -95,23 +95,25 @@ export default {
         token: null,
 
         user: {
-            email: 'undefined email',
-            name: 'undefined name'
+            email: undefined,
+            name: undefined
         },
     }),
 
     created() {
         this.search = this.value;
+
+        this.user = this.$root.user;
+
+        if (typeof this.user.name === 'undefined' || typeof this.user.email === 'undefined') {
+            this.fetchUser();
+        } else {
+            this.$root.theme = this.$auth.theme();
+        }
     },
 
     mounted() {
         this.token = this.$auth.token();
-
-        this.user = this.$auth.getUser();
-
-        if (!this.user) {
-            this.fetchUser();
-        }
     },
 
     methods: {
@@ -119,7 +121,8 @@ export default {
             try {
                 let user = await this.$http.get('/api/user');
                 this.$auth.setUser(user.data);    
-                this.user = this.$auth.getUser();
+                this.$root.user = this.$auth.getUser();
+                this.$root.theme = this.$auth.theme();
             } catch (error) {
                 this.$error = error;   
             }
@@ -156,6 +159,10 @@ export default {
             this.$nextTick(() => {
                 this.$refs.input.focus();
             });
+        },
+
+        '$root.user': function(newval) {
+            this.user = newval;
         }
     }
 };

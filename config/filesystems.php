@@ -48,6 +48,16 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'chunks' => [
+            'driver' => 'local',
+            'root' => storage_path('chunks'),
+        ],
+
+        'uploads' => [
+            'driver' => 'local',
+            'root' => storage_path('uploads'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

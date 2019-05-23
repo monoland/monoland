@@ -10637,6 +10637,18 @@ table.v-table tfoot tr td {
   height: 72px;
   border-radius: 50%;
 }
+.v-card__profile {
+  margin-top: 65px;
+}
+.v-card__profile--image {
+  height: 130px;
+  border-radius: 50% !important;
+  overflow: hidden;
+  top: -65px;
+}
+.v-card__profile--offset {
+  margin-top: -48px;
+}
 .v-datatable__message {
   display: flex;
   align-items: center;
@@ -10779,6 +10791,41 @@ table.v-table tfoot tr td {
 .v-page--foot__content {
   display: flex;
   padding: 12px 24px;
+}
+.v-photo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.v-photo__wraper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.v-photo__wraper img {
+  height: 100%;
+  width: auto;
+}
+.v-photo__overlay {
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  position: absolute !important;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity 0.2s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+.v-photo__overlay input[name="qqfile"] {
+  width: 100%;
+}
+.v-photo__overlay.v-photo__hover {
+  opacity: 1;
 }
 .v-search {
   align-items: center;

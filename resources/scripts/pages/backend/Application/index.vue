@@ -1,12 +1,12 @@
 <template>
     <div class="v-page__wrap">
-        <v-header title="Profile"></v-header>
+        <v-header title="Aplikasi"></v-header>
 
         <div class="v-page--body">
             <div class="v-page--body__content">
                 <v-card class="v-card__profile mx-auto" width="450px">
                     <v-sheet class="v-card__profile--image mx-auto" elevation="7" max-width="130px">
-                        <v-photo></v-photo>
+                        pict
                     </v-sheet>
 
                     <v-card-text class="v-card__profile--offset pt-0 pb-1">
@@ -14,19 +14,14 @@
                             <v-layout wrap>
                                 <v-flex md12>
                                     <v-text-field
-                                        label="Nama Pengguna"
+                                        label="Nama Perusahaan"
                                         color="blue-grey"
                                     ></v-text-field>
 
-                                    <v-text-field
-                                        label="Alamat Email"
+                                    <v-textarea
+                                        label="Slogan"
                                         color="blue-grey"
-                                    ></v-text-field>
-
-                                    <v-text-field
-                                        label="Warna Thema"
-                                        color="blue-grey"
-                                    ></v-text-field>
+                                    ></v-textarea>
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -44,6 +39,6 @@
 
 <script>
 export default {
-    name: 'page-profile'
+    name: 'page-company'
 };
 </script>

@@ -75,7 +75,7 @@ export default {
 
     created() {
         this.state = this.value;
-        this.theme = this.$auth.theme();
+        this.theme = this.$root.theme;
     },
 
     methods: {
@@ -91,6 +91,10 @@ export default {
     watch: {
         value: function(newval) {
             this.state = newval;
+        },
+
+        '$root.theme': function(newval){
+            this.theme = newval;
         }
     }
 };

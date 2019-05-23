@@ -44,7 +44,13 @@ export default {
     }),
 
     created() {
-        this.theme =  this.$auth.theme();
+        this.theme =  this.$root.theme;
+    },
+
+    watch: {
+        '$root.theme': function(newval) {
+            this.theme = newval;
+        }
     }
 };
 </script>

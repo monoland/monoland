@@ -1,12 +1,12 @@
 <template>
     <div class="v-page__wrap">
-        <v-header title="Profile"></v-header>
+        <v-header title="Katasandi"></v-header>
 
         <div class="v-page--body">
             <div class="v-page--body__content">
                 <v-card class="v-card__profile mx-auto" width="450px">
                     <v-sheet class="v-card__profile--image mx-auto" elevation="7" max-width="130px">
-                        <v-photo></v-photo>
+                        pict
                     </v-sheet>
 
                     <v-card-text class="v-card__profile--offset pt-0 pb-1">
@@ -14,17 +14,17 @@
                             <v-layout wrap>
                                 <v-flex md12>
                                     <v-text-field
-                                        label="Nama Pengguna"
+                                        label="Katasandi Lama"
                                         color="blue-grey"
                                     ></v-text-field>
 
                                     <v-text-field
-                                        label="Alamat Email"
+                                        label="Katasandi Baru"
                                         color="blue-grey"
                                     ></v-text-field>
 
                                     <v-text-field
-                                        label="Warna Thema"
+                                        label="Konfirmasi Sandi"
                                         color="blue-grey"
                                     ></v-text-field>
                                 </v-flex>
@@ -44,6 +44,6 @@
 
 <script>
 export default {
-    name: 'page-profile'
+    name: 'page-password'
 };
 </script>

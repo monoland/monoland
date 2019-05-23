@@ -16,5 +16,12 @@ import router from './routes/backend';
 
 new Vue({
     router,
+    data:() => ({
+        theme: null,
+        user: {
+            email: undefined,
+            name: undefined
+        }
+    }),
     render: h => h(Monoland)
 }).$mount('#monoland');

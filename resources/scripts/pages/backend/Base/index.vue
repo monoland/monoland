@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 export default {
     name: 'page-base',
 
@@ -61,7 +62,7 @@ export default {
     }),
 
     created() {
-        this.theme = this.$auth.theme() + ' white--text';
+        this.theme = this.$root.theme + ' white--text';
     },
 
     mounted() {
@@ -83,6 +84,12 @@ export default {
             } catch (error) {
                 this.$error = error;
             }
+        }
+    },
+
+    watch: {
+        '$root.theme': function(newval) {
+            this.theme = newval + ' white--text';
         }
     }
 };

@@ -7636,7 +7636,7 @@ var render = function() {
                         _c("v-img", {
                           staticClass: "v-image__rounded",
                           attrs: {
-                            src: "/images/placeholder.png",
+                            src: "/images/logos-holder.png",
                             alt: "logo",
                             "aspect-ratio": "1"
                           }
