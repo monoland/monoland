@@ -6,7 +6,9 @@
             <div class="v-page--body__content">
                 <v-card class="v-card__profile mx-auto" width="450px">
                     <v-sheet class="v-card__profile--image mx-auto" elevation="7" max-width="130px">
-                        <v-photo></v-photo>
+                        <v-photo
+                            v-model="record.avatar"
+                        ></v-photo>
                     </v-sheet>
 
                     <v-card-text class="v-card__profile--offset pt-0 pb-1">
@@ -15,17 +17,20 @@
                                 <v-flex md12>
                                     <v-text-field
                                         label="Nama Pengguna"
-                                        color="blue-grey"
+                                        :color="$root.theme"
+                                        v-model="record.name"
                                     ></v-text-field>
 
                                     <v-text-field
                                         label="Alamat Email"
-                                        color="blue-grey"
+                                        :color="$root.theme"
+                                        v-model="record.email"
                                     ></v-text-field>
 
                                     <v-text-field
                                         label="Warna Thema"
-                                        color="blue-grey"
+                                        :color="$root.theme"
+                                        v-model="record.theme"
                                     ></v-text-field>
                                 </v-flex>
                             </v-layout>
@@ -34,7 +39,7 @@
 
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue-grey" flat>update</v-btn>
+                        <v-btn :color="$root.theme" flat @click="postUpdate">update</v-btn>
                     </v-card-actions>
                 </v-card>
             </div>
@@ -44,6 +49,39 @@
 
 <script>
 export default {
-    name: 'page-profile'
+    name: 'page-profile',
+
+    data:() => ({
+        record: {
+            avatar: null,
+            name: null,
+            email: null,
+            theme: null
+        }
+    }),
+
+    created() {
+        this.record = this.$root.user;
+    },
+
+    methods: {
+        postUpdate: async function() {
+            try {
+                let {data: {data}} = await this.$http.put(
+                    '/api/profile', this.record
+                );
+
+                this.$message = 'update profile berhasil!';
+            } catch (error) {
+                this.$error = error;
+            }
+        },
+    },
+
+    watch: {
+        '$root.user': function(newval) {
+            this.record = newval;
+        }
+    }
 };
 </script>

@@ -21,6 +21,11 @@ new Vue({
         user: {
             email: undefined,
             name: undefined
+        },
+        snackbar: {
+            state: false,
+            color: null,
+            text: null
         }
     }),
     render: h => h(Monoland)

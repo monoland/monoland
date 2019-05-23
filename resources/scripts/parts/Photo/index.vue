@@ -9,6 +9,7 @@
             :id="uuid"
             @mouseover="mouseover" 
             @mouseleave="mouseleave"
+            v-if="!basic"
         >
             <v-icon dark>camera_alt</v-icon>
         </div>
@@ -33,10 +34,12 @@ export default {
             default: '/images/small/'
         },
 
-        value: {
-            type: String,
-            default: null
-        }
+        basic: {
+            type: Boolean,
+            default: false
+        },
+
+        value: String
     },
 
     data:() => ({
@@ -123,7 +126,9 @@ export default {
 
     watch: {
         value: function(newval) {
-            this.photourl = this.path + newval;
+            if (newval) {
+                this.photourl = this.path + newval;
+            }
         },
     }
 };

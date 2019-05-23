@@ -1853,6 +1853,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'page-base',
@@ -1959,6 +1968,28 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2004,7 +2035,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'page-password'
+  name: 'page-password',
+  data: function data() {
+    return {
+      record: {
+        avatar: null
+      },
+      user: {
+        old_password: null,
+        password: null,
+        password_confirmation: null
+      },
+      hidden1: true,
+      hidden2: true,
+      hidden3: true
+    };
+  },
+  created: function created() {
+    this.record = this.$root.user;
+  },
+  methods: {
+    postUpdate: function () {
+      var _postUpdate = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _ref, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return this.$http.put('/api/password', this.user);
+
+              case 3:
+                _ref = _context.sent;
+                data = _ref.data.data;
+                this.$message = 'update password berhasil!';
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+                this.$error = _context.t0;
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 8]]);
+      }));
+
+      function postUpdate() {
+        return _postUpdate.apply(this, arguments);
+      }
+
+      return postUpdate;
+    }()
+  },
+  watch: {
+    '$root.user': function $rootUser(newval) {
+      this.record = newval;
+    }
+  }
 });
 
 /***/ }),
@@ -2018,6 +2114,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2063,7 +2172,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'page-profile'
+  name: 'page-profile',
+  data: function data() {
+    return {
+      record: {
+        avatar: null,
+        name: null,
+        email: null,
+        theme: null
+      }
+    };
+  },
+  created: function created() {
+    this.record = this.$root.user;
+  },
+  methods: {
+    postUpdate: function () {
+      var _postUpdate = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _ref, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return this.$http.put('/api/profile', this.record);
+
+              case 3:
+                _ref = _context.sent;
+                data = _ref.data.data;
+                this.$message = 'update profile berhasil!';
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+                this.$error = _context.t0;
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 8]]);
+      }));
+
+      function postUpdate() {
+        return _postUpdate.apply(this, arguments);
+      }
+
+      return postUpdate;
+    }()
+  },
+  watch: {
+    '$root.user': function $rootUser(newval) {
+      this.record = newval;
+    }
+  }
 });
 
 /***/ }),
@@ -2697,6 +2866,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2710,10 +2880,11 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       "default": '/images/small/'
     },
-    value: {
-      type: String,
-      "default": null
-    }
+    basic: {
+      type: Boolean,
+      "default": false
+    },
+    value: String
   },
   data: function data() {
     return {
@@ -2792,7 +2963,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     value: function value(newval) {
-      this.photourl = this.path + newval;
+      if (newval) {
+        this.photourl = this.path + newval;
+      }
     }
   }
 });
@@ -15934,7 +16107,37 @@ var render = function() {
           ],
           1
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          attrs: { color: _vm.$root.snackbar.color },
+          model: {
+            value: _vm.$root.snackbar.state,
+            callback: function($$v) {
+              _vm.$set(_vm.$root.snackbar, "state", $$v)
+            },
+            expression: "$root.snackbar.state"
+          }
+        },
+        [
+          _vm._v("\n        " + _vm._s(_vm.$root.snackbar.text) + "\n        "),
+          _c(
+            "v-btn",
+            {
+              attrs: { dark: "", flat: "" },
+              on: {
+                click: function($event) {
+                  _vm.$root.snackbar.state = false
+                }
+              }
+            },
+            [_vm._v("Tutup")]
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -16018,7 +16221,19 @@ var render = function() {
                     staticClass: "v-card__profile--image mx-auto",
                     attrs: { elevation: "7", "max-width": "130px" }
                   },
-                  [_vm._v("\n                    pict\n                ")]
+                  [
+                    _c("v-photo", {
+                      attrs: { basic: "" },
+                      model: {
+                        value: _vm.record.avatar,
+                        callback: function($$v) {
+                          _vm.$set(_vm.record, "avatar", $$v)
+                        },
+                        expression: "record.avatar"
+                      }
+                    })
+                  ],
+                  1
                 ),
                 _vm._v(" "),
                 _c(
@@ -16043,21 +16258,73 @@ var render = function() {
                                 _c("v-text-field", {
                                   attrs: {
                                     label: "Katasandi Lama",
-                                    color: "blue-grey"
+                                    color: _vm.$root.theme,
+                                    "append-icon": _vm.hidden1
+                                      ? "visibility_off"
+                                      : "visibility",
+                                    type: _vm.hidden1 ? "password" : "text"
+                                  },
+                                  on: {
+                                    "click:append": function($event) {
+                                      _vm.hidden1 = !_vm.hidden1
+                                    }
+                                  },
+                                  model: {
+                                    value: _vm.user.old_password,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.user, "old_password", $$v)
+                                    },
+                                    expression: "user.old_password"
                                   }
                                 }),
                                 _vm._v(" "),
                                 _c("v-text-field", {
                                   attrs: {
                                     label: "Katasandi Baru",
-                                    color: "blue-grey"
+                                    color: _vm.$root.theme,
+                                    "append-icon": _vm.hidden2
+                                      ? "visibility_off"
+                                      : "visibility",
+                                    type: _vm.hidden2 ? "password" : "text"
+                                  },
+                                  on: {
+                                    "click:append": function($event) {
+                                      _vm.hidden2 = !_vm.hidden2
+                                    }
+                                  },
+                                  model: {
+                                    value: _vm.user.password,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.user, "password", $$v)
+                                    },
+                                    expression: "user.password"
                                   }
                                 }),
                                 _vm._v(" "),
                                 _c("v-text-field", {
                                   attrs: {
                                     label: "Konfirmasi Sandi",
-                                    color: "blue-grey"
+                                    color: _vm.$root.theme,
+                                    "append-icon": _vm.hidden3
+                                      ? "visibility_off"
+                                      : "visibility",
+                                    type: _vm.hidden3 ? "password" : "text"
+                                  },
+                                  on: {
+                                    "click:append": function($event) {
+                                      _vm.hidden3 = !_vm.hidden3
+                                    }
+                                  },
+                                  model: {
+                                    value: _vm.user.password_confirmation,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.user,
+                                        "password_confirmation",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "user.password_confirmation"
                                   }
                                 })
                               ],
@@ -16078,9 +16345,14 @@ var render = function() {
                   [
                     _c("v-spacer"),
                     _vm._v(" "),
-                    _c("v-btn", { attrs: { color: "blue-grey", flat: "" } }, [
-                      _vm._v("update")
-                    ])
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { color: _vm.$root.theme, flat: "" },
+                        on: { click: _vm.postUpdate }
+                      },
+                      [_vm._v("update")]
+                    )
                   ],
                   1
                 )
@@ -16141,7 +16413,17 @@ var render = function() {
                     staticClass: "v-card__profile--image mx-auto",
                     attrs: { elevation: "7", "max-width": "130px" }
                   },
-                  [_c("v-photo")],
+                  [
+                    _c("v-photo", {
+                      model: {
+                        value: _vm.record.avatar,
+                        callback: function($$v) {
+                          _vm.$set(_vm.record, "avatar", $$v)
+                        },
+                        expression: "record.avatar"
+                      }
+                    })
+                  ],
                   1
                 ),
                 _vm._v(" "),
@@ -16167,21 +16449,42 @@ var render = function() {
                                 _c("v-text-field", {
                                   attrs: {
                                     label: "Nama Pengguna",
-                                    color: "blue-grey"
+                                    color: _vm.$root.theme
+                                  },
+                                  model: {
+                                    value: _vm.record.name,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.record, "name", $$v)
+                                    },
+                                    expression: "record.name"
                                   }
                                 }),
                                 _vm._v(" "),
                                 _c("v-text-field", {
                                   attrs: {
                                     label: "Alamat Email",
-                                    color: "blue-grey"
+                                    color: _vm.$root.theme
+                                  },
+                                  model: {
+                                    value: _vm.record.email,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.record, "email", $$v)
+                                    },
+                                    expression: "record.email"
                                   }
                                 }),
                                 _vm._v(" "),
                                 _c("v-text-field", {
                                   attrs: {
                                     label: "Warna Thema",
-                                    color: "blue-grey"
+                                    color: _vm.$root.theme
+                                  },
+                                  model: {
+                                    value: _vm.record.theme,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.record, "theme", $$v)
+                                    },
+                                    expression: "record.theme"
                                   }
                                 })
                               ],
@@ -16202,9 +16505,14 @@ var render = function() {
                   [
                     _c("v-spacer"),
                     _vm._v(" "),
-                    _c("v-btn", { attrs: { color: "blue-grey", flat: "" } }, [
-                      _vm._v("update")
-                    ])
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { color: _vm.$root.theme, flat: "" },
+                        on: { click: _vm.postUpdate }
+                      },
+                      [_vm._v("update")]
+                    )
                   ],
                   1
                 )
@@ -17057,17 +17365,19 @@ var render = function() {
       _c("img", { attrs: { src: _vm.photourl, alt: "photo" } })
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "v-photo__overlay",
-        class: { "v-photo__hover": _vm.onHover },
-        attrs: { id: _vm.uuid },
-        on: { mouseover: _vm.mouseover, mouseleave: _vm.mouseleave }
-      },
-      [_c("v-icon", { attrs: { dark: "" } }, [_vm._v("camera_alt")])],
-      1
-    )
+    !_vm.basic
+      ? _c(
+          "div",
+          {
+            staticClass: "v-photo__overlay",
+            class: { "v-photo__hover": _vm.onHover },
+            attrs: { id: _vm.uuid },
+            on: { mouseover: _vm.mouseover, mouseleave: _vm.mouseleave }
+          },
+          [_c("v-icon", { attrs: { dark: "" } }, [_vm._v("camera_alt")])],
+          1
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -20031,6 +20341,11 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
       user: {
         email: undefined,
         name: undefined
+      },
+      snackbar: {
+        state: false,
+        color: null,
+        text: null
       }
     };
   },
@@ -20145,6 +20460,21 @@ var AuthProvider = {
           headers: headers
         });
       }
+    }); // define message
+
+    var $message = {};
+    Object.defineProperty(Vue.prototype, '$message', {
+      get: function get() {
+        return $message;
+      },
+      set: function set(newval) {
+        $message = {
+          color: 'success',
+          text: newval,
+          state: true
+        };
+        this.$root.snackbar = $message;
+      }
     }); // define error
 
     var $error = {};
@@ -20163,19 +20493,19 @@ var AuthProvider = {
             $auth.signout();
           } else if (errors) {
             $error = {
-              type: 'error',
+              color: 'error',
               text: message,
-              show: true
+              state: true
             };
-            this.$root.message = $error;
+            this.$root.snackbar = $error;
           }
         } else if (newval.hasOwnProperty('message')) {
           $error = {
-            type: 'error',
+            color: 'error',
             text: newval.message,
-            show: true
+            state: true
           };
-          this.$root.message = $error;
+          this.$root.snackbar = $error;
         }
 
         if (false) {}
@@ -20431,7 +20761,7 @@ var FormProvider = {
                 data = _ref3.data.data;
                 this.records.push(data);
                 this.form.onShow = false;
-                this.$message = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","MIX_ENCRYPT":"base64:dVEw777VXSokptpAG9Y77BlGRM9yn1NPeCxX3U340C0=","NODE_ENV":"development"}).MIX_MESSAGE_NEW;
+                this.$message = 'proses simpan berhasil!';
                 _context3.next = 14;
                 break;
 
@@ -20485,7 +20815,7 @@ var FormProvider = {
                 data = _ref4.data.data;
                 this.record = data;
                 this.form.onShow = false;
-                this.$message = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","MIX_ENCRYPT":"base64:dVEw777VXSokptpAG9Y77BlGRM9yn1NPeCxX3U340C0=","NODE_ENV":"development"}).MIX_MESSAGE_UPDATE;
+                this.$message = 'proses update berhasil!';
                 _context4.next = 14;
                 break;
 
@@ -20575,7 +20905,7 @@ var FormProvider = {
               case 19:
                 _context5.prev = 19;
                 this.form.onDelete = false;
-                this.$message = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","MIX_ENCRYPT":"base64:dVEw777VXSokptpAG9Y77BlGRM9yn1NPeCxX3U340C0=","NODE_ENV":"development"}).MIX_MESSAGE_DELETE;
+                this.$message = 'proses hapus berhasil!';
                 this.ctrlState = 'default';
                 return _context5.finish(19);
 

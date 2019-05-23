@@ -89,6 +89,70 @@ class User extends Authenticatable
     }
 
     /**
+     * Update
+     */
+    public static function updateRecord($request, $model)
+    {
+        DB::beginTransaction();
+
+        try {
+            if ($request->has('name')) {
+                $model->name = $request->name;
+            }
+
+            if ($request->has('email')) {
+                $model->email = $request->email;
+            }
+
+            if ($request->has('avatar')) {
+                $model->avatar = $request->avatar;
+            }
+            
+            if ($request->has('authorization')) {
+                $model->authorization = $request->authorization;
+            }
+
+            if ($request->has('avatar')) {
+                $model->avatar = $request->avatar;
+            }
+
+            if ($request->has('theme')) {
+                $model->theme = $request->theme;
+            }
+
+            $model->save();
+
+            DB::commit();
+
+            return new UserResource($model);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            abort(500, $e->getMessage());
+        }
+    }
+
+    /**
+     * changePassword
+     */
+    public static function updatePassword($request, $model)
+    {
+        DB::beginTransaction();
+
+        try {
+            $model->fill([
+                'password' => Hash::make($request->password)
+            ])->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            abort(500, $e->getMessage());
+        }
+    }
+
+    /**
      * Destroy
      */
     public static function destroyRecord($model)

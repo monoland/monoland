@@ -48,6 +48,15 @@
                 </div>
             </div>
         </v-content>
+
+        <v-snackbar
+            v-model="$root.snackbar.state"
+            :color="$root.snackbar.color"
+
+        >
+            {{ $root.snackbar.text }}
+            <v-btn dark flat @click="$root.snackbar.state = false">Tutup</v-btn>
+        </v-snackbar>
     </v-app>
 </template>
 

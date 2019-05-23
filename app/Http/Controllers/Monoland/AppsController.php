@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Monoland;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
 
 class AppsController extends Controller
 {
@@ -21,6 +23,21 @@ class AppsController extends Controller
     public function user(Request $request)
     {
         return new UserResource($request->user());
+    }
+
+    public function profile(Request $request) 
+    {    
+        return User::updateRecord($request, $request->user());
+    }
+
+    public function password(Request $request)
+    {
+        $this->validate($request, [
+            'old_password' => 'required|old_password',
+            'password' => 'confirmed|max:8|different:old_password'
+        ]);
+
+        return User::updatePassword($request, $request->user());
     }
 
     public function menus(Request $request)

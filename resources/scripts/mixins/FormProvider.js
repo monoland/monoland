@@ -165,7 +165,7 @@ export const FormProvider = {
 
                 this.records.push(data);
                 this.form.onShow = false;
-                this.$message = process.env.MIX_MESSAGE_NEW;
+                this.$message = 'proses simpan berhasil!';
             } catch (error) {
                 this.$error = error;
             }
@@ -195,7 +195,7 @@ export const FormProvider = {
 
                 this.record = data;
                 this.form.onShow = false;
-                this.$message = process.env.MIX_MESSAGE_UPDATE;
+                this.$message = 'proses update berhasil!';
             } catch (error) {
                 this.$error = error;
             }
@@ -243,7 +243,7 @@ export const FormProvider = {
                 this.$error = error;
             } finally {
                 this.form.onDelete = false;
-                this.$message = process.env.MIX_MESSAGE_DELETE;
+                this.$message = 'proses hapus berhasil!';
                 this.ctrlState = 'default';
             }
         },

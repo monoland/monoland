@@ -10845,6 +10845,21 @@ var AuthProvider = {
           headers: headers
         });
       }
+    }); // define message
+
+    var $message = {};
+    Object.defineProperty(Vue.prototype, '$message', {
+      get: function get() {
+        return $message;
+      },
+      set: function set(newval) {
+        $message = {
+          color: 'success',
+          text: newval,
+          state: true
+        };
+        this.$root.snackbar = $message;
+      }
     }); // define error
 
     var $error = {};
@@ -10863,19 +10878,19 @@ var AuthProvider = {
             $auth.signout();
           } else if (errors) {
             $error = {
-              type: 'error',
+              color: 'error',
               text: message,
-              show: true
+              state: true
             };
-            this.$root.message = $error;
+            this.$root.snackbar = $error;
           }
         } else if (newval.hasOwnProperty('message')) {
           $error = {
-            type: 'error',
+            color: 'error',
             text: newval.message,
-            show: true
+            state: true
           };
-          this.$root.message = $error;
+          this.$root.snackbar = $error;
         }
 
         if (false) {}

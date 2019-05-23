@@ -75,6 +75,25 @@ export const AuthProvider = {
             }
         });
 
+        // define message
+        let $message = {};
+
+        Object.defineProperty(Vue.prototype, '$message', {
+            get() {
+                return $message;
+            },
+
+            set(newval) {
+                $message = {
+                    color: 'success',
+                    text: newval,
+                    state: true
+                };
+
+                this.$root.snackbar = $message;
+            }
+        });
+
         // define error
         let $error = {};
 
@@ -92,21 +111,21 @@ export const AuthProvider = {
                         $auth.signout();
                     } else if (errors) {
                         $error = {
-                            type: 'error',
+                            color: 'error',
                             text: message,
-                            show: true
+                            state: true
                         };
 
-                        this.$root.message = $error;
+                        this.$root.snackbar = $error;
                     }
                 } else if (newval.hasOwnProperty('message')) {
                     $error = {
-                        type: 'error',
+                        color: 'error',
                         text: newval.message,
-                        show: true
+                        state: true
                     };
 
-                    this.$root.message = $error;
+                    this.$root.snackbar = $error;
                 }
 
                 if (process.env.NODE_ENV === 'production') {
