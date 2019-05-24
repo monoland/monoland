@@ -2,7 +2,7 @@
 
 cara install:
 ```
-    composer require monoland/monoland
+    composer create-project monoland/monoland [yourproject]
 ```
 
 setelah itu
