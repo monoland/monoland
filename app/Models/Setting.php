@@ -95,9 +95,9 @@ class Setting extends Model
             $model = new static;
             
             if ($request->id === 'company') {
-                $model->name = $request->name;
-                $model->slogan = $request->slogan;
-                $model->avatar = $request->avatar;
+                $model->name = $request->meta['name'];
+                $model->slogan = $request->meta['slogan'];
+                $model->avatar = $request->meta['avatar'];
             }
 
             $model->save();
@@ -120,7 +120,12 @@ class Setting extends Model
         DB::beginTransaction();
 
         try {
-            // ...
+            if ($request->id === 'company') {
+                $model->name = $request->meta['name'];
+                $model->slogan = $request->meta['slogan'];
+                $model->avatar = $request->meta['avatar'];
+            }
+
             $model->save();
 
             DB::commit();

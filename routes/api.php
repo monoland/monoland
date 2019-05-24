@@ -1,6 +1,7 @@
 <?php
 
 Route::middleware('throttle:200,1')->group(function () {
+    Route::get('company', 'Monoland\AppsController@company');
     Route::post('media', 'Monoland\MediaController@store');
     Route::delete('media/{media}', 'Monoland\MediaController@destroy');
     Route::get('media/{media}/download', 'Monoland\MediaController@download');

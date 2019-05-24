@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\SettingResource;
+use App\Models\Setting;
 
 class AppsController extends Controller
 {
@@ -38,6 +40,11 @@ class AppsController extends Controller
         ]);
 
         return User::updatePassword($request, $request->user());
+    }
+
+    public function company(Request $request)
+    {
+        return new SettingResource( Setting::find('company') );
     }
 
     public function menus(Request $request)

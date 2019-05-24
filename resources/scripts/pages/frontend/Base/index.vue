@@ -9,13 +9,15 @@
                 <v-layout align-center justify-center>
                     <div class="message-box">
                         <div class="message-logo">
-                            <v-img class="v-image__rounded" src="/images/logos-holder.png" alt="logo" aspect-ratio="1"></v-img>
+                            <div class="message-logo__wrap">
+                                <img :src="logo" alt="logo">
+                            </div>
                         </div>
 
                         <div class="message-text">
                             <div class="brand-text white--text title">Welcome to</div>
-                            <div class="brand-name font-weight-thin display-3 white--text">Monoland Apps</div>
-                            <div class="brand-copy white--text text-xs-right">&copy Monoland 2019</div>
+                            <div class="brand-name font-weight-thin display-3 white--text">{{ company }}</div>
+                            <div class="brand-copy white--text text-xs-right">{{ slogan }}</div>
                         </div>
                     </div>
                 </v-layout>
@@ -39,8 +41,15 @@ export default {
 
     data:() => ({
         snackbar: false,
-        message: null
+        message: null,
+        logo: null,
+        company: null,
+        slogan: null
     }),
+
+    created() {
+        this.fetch('/api/company');
+    },
 
     mounted() {
         if (window.errors) {
@@ -52,6 +61,19 @@ export default {
 
             this.snackbar = true;
         }   
+    },
+
+    methods: {
+        fetch: async function(url, params) {
+            try {
+                let { data: {data}} = await this.$http.get(url);
+                this.logo = '/images/small/' + data.meta.avatar;
+                this.company = data.meta.name;
+                this.slogan = data.meta.slogan;
+            } catch (error) {
+                this.$error = error;
+            }
+        },
     }
 };
 </script>

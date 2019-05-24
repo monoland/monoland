@@ -1736,6 +1736,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
 //
 //
 //
@@ -1783,9 +1793,98 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       record: {
-        avatar: null
+        id: 'company',
+        meta: {
+          avatar: null
+        }
       }
     };
+  },
+  created: function created() {
+    this.fetch('/api/setting/company');
+  },
+  methods: {
+    fetch: function () {
+      var _fetch = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url, params) {
+        var _ref, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return this.$http.get(url);
+
+              case 3:
+                _ref = _context.sent;
+                data = _ref.data.data;
+                this.record = data;
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+                this.$error = _context.t0;
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 8]]);
+      }));
+
+      function fetch(_x, _x2) {
+        return _fetch.apply(this, arguments);
+      }
+
+      return fetch;
+    }(),
+    postUpdate: function () {
+      var _postUpdate = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _ref2, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return this.$http.put('/api/setting/company', this.record);
+
+              case 3:
+                _ref2 = _context2.sent;
+                data = _ref2.data.data;
+                this.record = data;
+                this.$message = 'proses update berhasil!';
+                _context2.next = 12;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](0);
+                this.$error = _context2.t0;
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[0, 9]]);
+      }));
+
+      function postUpdate() {
+        return _postUpdate.apply(this, arguments);
+      }
+
+      return postUpdate;
+    }()
   }
 });
 
@@ -15911,11 +16010,11 @@ var render = function() {
                     _c("v-photo", {
                       attrs: { placeholder: "/images/logos-holder.png" },
                       model: {
-                        value: _vm.record.avatar,
+                        value: _vm.record.meta.avatar,
                         callback: function($$v) {
-                          _vm.$set(_vm.record, "avatar", $$v)
+                          _vm.$set(_vm.record.meta, "avatar", $$v)
                         },
-                        expression: "record.avatar"
+                        expression: "record.meta.avatar"
                       }
                     })
                   ],
@@ -15944,12 +16043,29 @@ var render = function() {
                                 _c("v-text-field", {
                                   attrs: {
                                     label: "Nama Perusahaan",
-                                    color: "blue-grey"
+                                    color: _vm.$root.theme
+                                  },
+                                  model: {
+                                    value: _vm.record.meta.name,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.record.meta, "name", $$v)
+                                    },
+                                    expression: "record.meta.name"
                                   }
                                 }),
                                 _vm._v(" "),
                                 _c("v-textarea", {
-                                  attrs: { label: "Slogan", color: "blue-grey" }
+                                  attrs: {
+                                    label: "Slogan",
+                                    color: _vm.$root.theme
+                                  },
+                                  model: {
+                                    value: _vm.record.meta.slogan,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.record.meta, "slogan", $$v)
+                                    },
+                                    expression: "record.meta.slogan"
+                                  }
                                 })
                               ],
                               1
@@ -15969,9 +16085,14 @@ var render = function() {
                   [
                     _c("v-spacer"),
                     _vm._v(" "),
-                    _c("v-btn", { attrs: { color: "blue-grey", flat: "" } }, [
-                      _vm._v("update")
-                    ])
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { color: _vm.$root.theme, flat: "" },
+                        on: { click: _vm.postUpdate }
+                      },
+                      [_vm._v("update")]
+                    )
                   ],
                   1
                 )

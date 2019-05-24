@@ -10596,13 +10596,29 @@ table.v-table tfoot tr td {
   align-items: center;
 }
 .message-logo {
+  border-radius: 5px;
+  display: flex;
+  height: 120px;
+  justify-content: center;
   width: 120px;
+  overflow: hidden;
+}
+.message-logo__wrap {
+  height: 100%;
+}
+.message-logo__wrap img {
+  height: 100%;
+  width: auto;
 }
 .message-text {
   padding-left: 24px;
 }
 .brand-name {
   margin-left: -4px;
+}
+.brand-copy {
+  font-weight: 500;
+  font-size: 15px;
 }
 .v-card__text {
   padding: 16px 8px;

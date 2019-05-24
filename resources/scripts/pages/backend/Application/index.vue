@@ -8,7 +8,7 @@
                     <v-sheet class="v-card__profile--image mx-auto" elevation="7" max-width="130px">
                         <v-photo
                             placeholder="/images/logos-holder.png"
-                            v-model="record.avatar"
+                            v-model="record.meta.avatar"
                         ></v-photo>
                     </v-sheet>
 
@@ -18,12 +18,14 @@
                                 <v-flex md12>
                                     <v-text-field
                                         label="Nama Perusahaan"
-                                        color="blue-grey"
+                                        :color="$root.theme"
+                                        v-model="record.meta.name"
                                     ></v-text-field>
 
                                     <v-textarea
                                         label="Slogan"
-                                        color="blue-grey"
+                                        :color="$root.theme"
+                                        v-model="record.meta.slogan"
                                     ></v-textarea>
                                 </v-flex>
                             </v-layout>
@@ -32,7 +34,7 @@
 
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue-grey" flat>update</v-btn>
+                        <v-btn :color="$root.theme" flat @click="postUpdate">update</v-btn>
                     </v-card-actions>
                 </v-card>
             </div>
@@ -46,8 +48,39 @@ export default {
 
     data:() => ({
         record: {
-            avatar: null
+            id: 'company',
+            meta: {
+                avatar: null
+            }
         }
-    })
+    }),
+
+    created() {
+        this.fetch('/api/setting/company');
+    },
+
+    methods: {
+        fetch: async function(url, params) {
+            try {
+                let { data: {data}} = await this.$http.get(url);
+                this.record = data;
+            } catch (error) {
+                this.$error = error;
+            }
+        },
+
+        postUpdate: async function() {
+            try {
+                let {data: {data}} = await this.$http.put(
+                    '/api/setting/company', this.record
+                );
+
+                this.record = data;
+                this.$message = 'proses update berhasil!';
+            } catch (error) {
+                this.$error = error;
+            }
+        },
+    }
 };
 </script>
