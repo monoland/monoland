@@ -67,7 +67,11 @@ export default {
         fetch: async function(url, params) {
             try {
                 let { data: {data}} = await this.$http.get(url);
-                this.logo = '/images/small/' + data.meta.avatar;
+                if (data.meta.avatar) {
+                    this.logo = '/images/small/' + data.meta.avatar;
+                } else {
+                    this.logo = '/images/logos-holder.png';
+                }
                 this.company = data.meta.name;
                 this.slogan = data.meta.slogan;
             } catch (error) {
