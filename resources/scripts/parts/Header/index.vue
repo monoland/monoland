@@ -108,7 +108,9 @@ export default {
         if (typeof this.user.name === 'undefined' || typeof this.user.email === 'undefined') {
             this.fetchUser();
         } else {
-            this.$root.theme = this.$auth.theme();
+            if (!this.$root.theme) {
+                this.$root.theme = this.$auth.theme();
+            }    
         }
     },
 

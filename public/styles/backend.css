@@ -10801,9 +10801,14 @@ table.v-table tfoot tr td {
   width: 100%;
 }
 .v-photo__wraper {
+  display: flex;
+  justify-content: center;
   position: relative;
   height: 100%;
   width: 100%;
+}
+.v-photo__wraper .img-wrap {
+  height: 100%;
 }
 .v-photo__wraper img {
   height: 100%;

@@ -71,6 +71,7 @@ export default {
                     '/api/profile', this.record
                 );
 
+                this.$root.theme = this.record.theme;
                 this.$message = 'update profile berhasil!';
             } catch (error) {
                 this.$error = error;

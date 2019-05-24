@@ -6,7 +6,10 @@
             <div class="v-page--body__content">
                 <v-card class="v-card__profile mx-auto" width="450px">
                     <v-sheet class="v-card__profile--image mx-auto" elevation="7" max-width="130px">
-                        pict
+                        <v-photo
+                            placeholder="/images/logos-holder.png"
+                            v-model="record.avatar"
+                        ></v-photo>
                     </v-sheet>
 
                     <v-card-text class="v-card__profile--offset pt-0 pb-1">
@@ -39,6 +42,12 @@
 
 <script>
 export default {
-    name: 'page-company'
+    name: 'page-company',
+
+    data:() => ({
+        record: {
+            avatar: null
+        }
+    })
 };
 </script>

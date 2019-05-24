@@ -14,4 +14,5 @@ Route::middleware('auth:api')->group(function() {
     
     Route::post('users/bulks', 'Monoland\UserController@bulks');
     Route::resource('users', 'Monoland\UserController');
+    Route::resource('setting', 'Monoland\SettingController');
 });

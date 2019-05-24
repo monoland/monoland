@@ -1,7 +1,9 @@
 <template>
     <div class="v-photo">
         <div class="v-photo__wraper">
-            <img :src="photourl" alt="photo">
+            <div class="img-wrap">
+                <img :src="photourl" alt="photo">
+            </div>
         </div>
 
         <div class="v-photo__overlay" 

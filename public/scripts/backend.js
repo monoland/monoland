@@ -1775,8 +1775,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'page-company'
+  name: 'page-company',
+  data: function data() {
+    return {
+      record: {
+        avatar: null
+      }
+    };
+  }
 });
 
 /***/ }),
@@ -2204,21 +2214,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 _ref = _context.sent;
                 data = _ref.data.data;
+                this.$root.theme = this.record.theme;
                 this.$message = 'update profile berhasil!';
-                _context.next = 11;
+                _context.next = 12;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 this.$error = _context.t0;
 
-              case 11:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 8]]);
+        }, _callee, this, [[0, 9]]);
       }));
 
       function postUpdate() {
@@ -2753,7 +2764,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     if (typeof this.user.name === 'undefined' || typeof this.user.email === 'undefined') {
       this.fetchUser();
     } else {
-      this.$root.theme = this.$auth.theme();
+      if (!this.$root.theme) {
+        this.$root.theme = this.$auth.theme();
+      }
     }
   },
   mounted: function mounted() {
@@ -2849,6 +2862,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var fine_uploader_lib_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(fine_uploader_lib_core__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! shortid */ "./node_modules/shortid/index.js");
 /* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(shortid__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
 //
 //
 //
@@ -15892,7 +15907,19 @@ var render = function() {
                     staticClass: "v-card__profile--image mx-auto",
                     attrs: { elevation: "7", "max-width": "130px" }
                   },
-                  [_vm._v("\n                    pict\n                ")]
+                  [
+                    _c("v-photo", {
+                      attrs: { placeholder: "/images/logos-holder.png" },
+                      model: {
+                        value: _vm.record.avatar,
+                        callback: function($$v) {
+                          _vm.$set(_vm.record, "avatar", $$v)
+                        },
+                        expression: "record.avatar"
+                      }
+                    })
+                  ],
+                  1
                 ),
                 _vm._v(" "),
                 _c(
@@ -17362,7 +17389,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "v-photo" }, [
     _c("div", { staticClass: "v-photo__wraper" }, [
-      _c("img", { attrs: { src: _vm.photourl, alt: "photo" } })
+      _c("div", { staticClass: "img-wrap" }, [
+        _c("img", { attrs: { src: _vm.photourl, alt: "photo" } })
+      ])
     ]),
     _vm._v(" "),
     !_vm.basic
