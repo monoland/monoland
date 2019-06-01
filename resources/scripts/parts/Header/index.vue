@@ -49,39 +49,43 @@
                                 <v-list-tile-sub-title>{{ user.email }}</v-list-tile-sub-title>
                             </v-list-tile-content>
                         </v-list-tile>
+                    
+                        <v-divider class="mt-2"></v-divider>
+
+                        <v-list-tile :to="{ name: 'profile' }">
+                            <v-list-tile-action><v-icon>perm_contact_calendar</v-icon></v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>Profile</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+
+                        <v-list-tile :to="{ name: 'password' }">
+                            <v-list-tile-action><v-icon>lock</v-icon></v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>Katasandi</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+
+                        <v-list-tile :to="{ name: 'application' }">
+                            <v-list-tile-action><v-icon>settings</v-icon></v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>Setting</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+
+                        <v-divider></v-divider>
+
+                        <v-list-tile @click="signout">
+                            <v-list-tile-action><v-icon>exit_to_app</v-icon></v-list-tile-action>
+                            <v-list-tile-content>
+                                <v-list-tile-title>Keluar</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
                     </v-list>
 
-                    <v-divider class="mt-2"></v-divider>
-
-                    <v-list-tile :to="{ name: 'profile' }">
-                        <v-list-tile-action><v-icon>perm_contact_calendar</v-icon></v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>Profile</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-list-tile :to="{ name: 'password' }">
-                        <v-list-tile-action><v-icon>lock</v-icon></v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>Katasandi</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-list-tile :to="{ name: 'application' }">
-                        <v-list-tile-action><v-icon>settings</v-icon></v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>Setting</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-divider></v-divider>
-
-                    <v-list-tile @click="signout">
-                        <v-list-tile-action><v-icon>exit_to_app</v-icon></v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>Keluar</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                    <form id="signout" action="/account/logout" method="POST" style="display: none;">
+                        <input type="hidden" name="_token" v-model="token">
+                    </form>
                 </v-card>
             </v-menu>
         </div>
