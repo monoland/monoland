@@ -2827,6 +2827,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'v-header',
@@ -17426,51 +17449,81 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c("v-divider"),
+                _c("v-divider", { staticClass: "mt-2" }),
                 _vm._v(" "),
                 _c(
-                  "v-card-actions",
+                  "v-list-tile",
+                  { attrs: { to: { name: "profile" } } },
                   [
-                    _c("v-spacer"),
-                    _vm._v(" "),
                     _c(
-                      "v-btn",
-                      { attrs: { flat: "" }, on: { click: _vm.signout } },
-                      [_vm._v("signout")]
+                      "v-list-tile-action",
+                      [_c("v-icon", [_vm._v("perm_contact_calendar")])],
+                      1
                     ),
                     _vm._v(" "),
                     _c(
-                      "form",
-                      {
-                        staticStyle: { display: "none" },
-                        attrs: {
-                          id: "signout",
-                          action: "/account/logout",
-                          method: "POST"
-                        }
-                      },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.token,
-                              expression: "token"
-                            }
-                          ],
-                          attrs: { type: "hidden", name: "_token" },
-                          domProps: { value: _vm.token },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.token = $event.target.value
-                            }
-                          }
-                        })
-                      ]
+                      "v-list-tile-content",
+                      [_c("v-list-tile-title", [_vm._v("Profile")])],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-list-tile",
+                  { attrs: { to: { name: "password" } } },
+                  [
+                    _c(
+                      "v-list-tile-action",
+                      [_c("v-icon", [_vm._v("lock")])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-list-tile-content",
+                      [_c("v-list-tile-title", [_vm._v("Katasandi")])],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-list-tile",
+                  { attrs: { to: { name: "application" } } },
+                  [
+                    _c(
+                      "v-list-tile-action",
+                      [_c("v-icon", [_vm._v("settings")])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-list-tile-content",
+                      [_c("v-list-tile-title", [_vm._v("Setting")])],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("v-divider"),
+                _vm._v(" "),
+                _c(
+                  "v-list-tile",
+                  { on: { click: _vm.signout } },
+                  [
+                    _c(
+                      "v-list-tile-action",
+                      [_c("v-icon", [_vm._v("exit_to_app")])],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-list-tile-content",
+                      [_c("v-list-tile-title", [_vm._v("Keluar")])],
+                      1
                     )
                   ],
                   1

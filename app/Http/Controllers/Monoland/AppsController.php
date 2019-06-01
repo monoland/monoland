@@ -51,12 +51,8 @@ class AppsController extends Controller
     {
         return response()->json([
             ['type' => 'item', 'icon' => 'dashboard', 'text' => 'Beranda', 'to' => ['name' => 'dashboard']],
-            ['type' => 'subheader', 'text' => 'Masters'],
+            ['type' => 'subheader', 'text' => 'Masters', 'class' => 'mt-2'],
             ['type' => 'item', 'icon' => 'people', 'text' => 'Pengguna', 'to' => ['name' => 'user']],
-            ['type' => 'subheader', 'class' => 'mt-2', 'text' => 'Settings'],
-            ['type' => 'item', 'icon' => 'fingerprint', 'text' => 'Aplikasi', 'to' => ['name' => 'application']],
-            ['type' => 'item', 'icon' => 'lock', 'text' => 'Katasandi', 'to' => ['name' => 'password']],
-            ['type' => 'item', 'icon' => 'perm_contact_calendar', 'text' => 'Profile', 'to' => ['name' => 'profile']],
         ]);
     }
 }
