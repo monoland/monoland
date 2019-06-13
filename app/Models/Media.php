@@ -26,7 +26,7 @@ class Media
             }
 
             $file = $request->file($handle->inputName);
-            
+
             $file->storeAs($uuid, $partIndex, $handle->chunksFolder);
 
             return [

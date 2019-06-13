@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 class Authent extends Model
 {
     // use HasMetaField, SoftDeletes;
-    
+
     /**
      * Indicates if the IDs are auto-incrementing.
      *
@@ -58,7 +58,6 @@ class Authent extends Model
         'name'
     ];
 
-
     // relations
 
     /**
@@ -67,7 +66,8 @@ class Authent extends Model
     public function scopeFetchCombo($query)
     {
         return $query->select(
-            'name AS text', 'id AS value'
+            'name AS text',
+            'id AS value'
         )->get();
     }
 

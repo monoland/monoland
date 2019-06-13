@@ -6,12 +6,13 @@ use App\Traits\HasMetaField;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\SettingResource;
 use Illuminate\Database\Eloquent\Model;
+
 // use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Setting extends Model
 {
     use HasMetaField;
-    
+
     /**
      * Indicates if the IDs are auto-incrementing.
      *
@@ -49,7 +50,6 @@ class Setting extends Model
      */
     protected $appends = [];
 
-
     // relations
 
     /**
@@ -58,7 +58,8 @@ class Setting extends Model
     public function scopeFetchCombo($query)
     {
         return $query->select(
-            'label AS text', 'id AS value'
+            'name AS text',
+            'id AS value'
         )->get();
     }
 
@@ -93,7 +94,7 @@ class Setting extends Model
 
         try {
             $model = new static;
-            
+
             if ($request->id === 'company') {
                 $model->name = $request->meta['name'];
                 $model->slogan = $request->meta['slogan'];
