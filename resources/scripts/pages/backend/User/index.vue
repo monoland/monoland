@@ -22,7 +22,7 @@
                         :headers="headers"
                         :items="records"
                         :pagination.sync="tablePaging"
-                        :total-items="table.totalRecords"
+                        :total-items="table.totalItems"
                         :rows-per-page-items="table.page"
                         :loading="table.loader"
                         select-all
@@ -41,7 +41,7 @@
                                 </td>
                                 <td>{{ props.item.name }}</td>
                                 <td>{{ props.item.email }}</td>
-                                <td>{{ props.item.authorization }}</td>
+                                <td>{{ props.item.authent_name }}</td>
                                 <td>{{ props.item.updated_at }}</td>
                             </tr>
                         </template>
@@ -79,10 +79,10 @@
                         ></v-text-field>
 
                         <v-select
-                            :items="authorization"
+                            :items="authorizations"
                             label="Otentikasi"
                             color="blue-grey"
-                            v-model="record.authorization"
+                            v-model="record.authent_id"
                         ></v-select>
                     </v-flex>
                 </v-dialog-form>
@@ -115,14 +115,16 @@ export default {
             { text: 'Updated', value: 'updated_at', class: 'date-updated' }
         ],
 
-        authorization: [
-            { text: 'Pemohon', value: 'submission' },
-            { text: 'Penilai', value: 'evaluator' },
-            { text: 'Penetap', value: 'approval' },
-        ],
+        authorizations: [],
 
         dataUrl: '/api/users'
     }),
+
+    created() {
+        this.fetchCombo('/api/authent/combo', (result) => {
+            this.authorizations = result;
+        });
+    },
 
     methods: {
         newRecord: function() {
@@ -130,7 +132,7 @@ export default {
                 id: null,
                 name: null,
                 email: null,
-                authorization: null
+                authent_id: null
             };
         }
     }

@@ -2,17 +2,52 @@
 
 namespace App\Models;
 
-use Laravel\Passport\HasApiTokens;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Resources\UserResource;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+// use App\Traits\HasMetaField;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\AuthentResource;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
-class User extends Authenticatable
+// use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Authent extends Model
 {
-    use HasApiTokens, Notifiable;
+    // use HasMetaField, SoftDeletes;
+    
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'int';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [];
 
     /**
      * The attributes that are mass assignable.
@@ -20,30 +55,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name'
     ];
+
+
+    // relations
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * Scope for combo
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function authent()
+    public function scopeFetchCombo($query)
     {
-        return $this->belongsTo(Authent::class);
+        return $query->select(
+            'name AS text', 'id AS value'
+        )->get();
     }
 
     /**
@@ -77,15 +102,12 @@ class User extends Authenticatable
 
         try {
             $model = new static;
-            $model->name = $request->name;
-            $model->email = $request->email;
-            $model->authent_id = $request->authent_id;
-            $model->password = Hash::make('12345678');
+            $model->name = Str::slug($request->name, '-');
             $model->save();
 
-            DB::commit();            
+            DB::commit();
 
-            return new UserResource($model);
+            return new AuthentResource($model);
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -101,55 +123,12 @@ class User extends Authenticatable
         DB::beginTransaction();
 
         try {
-            if ($request->has('name')) {
-                $model->name = $request->name;
-            }
-
-            if ($request->has('email')) {
-                $model->email = $request->email;
-            }
-
-            if ($request->has('avatar')) {
-                $model->avatar = $request->avatar;
-            }
-            
-            if ($request->has('authorization')) {
-                $model->authorization = $request->authorization;
-            }
-
-            if ($request->has('avatar')) {
-                $model->avatar = $request->avatar;
-            }
-
-            if ($request->has('theme')) {
-                $model->theme = $request->theme;
-            }
-
+            $model->name = Str::slug($request->name, '-');
             $model->save();
 
             DB::commit();
 
-            return new UserResource($model);
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            abort(500, $e->getMessage());
-        }
-    }
-
-    /**
-     * changePassword
-     */
-    public static function updatePassword($request, $model)
-    {
-        DB::beginTransaction();
-
-        try {
-            $model->fill([
-                'password' => Hash::make($request->password)
-            ])->save();
-
-            DB::commit();
+            return new AuthentResource($model);
         } catch (\Exception $e) {
             DB::rollBack();
 
