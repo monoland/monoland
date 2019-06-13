@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'development',
             'email' => 'dev@monoland.loc',
             'password' => Hash::make('rahasia'),
-            'authorization' => 'administrator'
+            'authent_id' => 1
         ]);
     }
 }
