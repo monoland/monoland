@@ -17,7 +17,7 @@ class DummyClass extends Model
      *
      * @var bool
      */
-    public $incrementing = false;
+    public $incrementing = true;
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -47,6 +47,13 @@ class DummyClass extends Model
      */
     protected $appends = [];
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [];
+
 
     // relations
 
@@ -56,7 +63,7 @@ class DummyClass extends Model
     public function scopeFetchCombo($query)
     {
         return $query->select(
-            'label AS text', 'id AS value'
+            'name AS text', 'id AS value'
         )->get();
     }
 

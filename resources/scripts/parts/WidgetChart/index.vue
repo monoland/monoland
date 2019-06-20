@@ -20,7 +20,6 @@
 </template>
 
 <script>
-// calc(100% - 48px)
 export default {
     name: 'v-widget-chart',
 

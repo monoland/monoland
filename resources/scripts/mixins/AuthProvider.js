@@ -1,34 +1,70 @@
 import Axios from 'axios';
-import SecureLS from 'secure-ls';
+import * as CryptoJS from 'crypto-js';
+import SecureStorage from 'secure-web-storage';
+// import SecureLS from 'secure-ls';
 
 class Authenticate
 {
     constructor() {
-        this.store = new SecureLS({
-            encryptionSecret: process.env.MIX_ENCRYPT 
+        let SECRET_KEY = process.env.MIX_ENCRYPT;
+
+        this.store = new SecureStorage(localStorage, {
+            hash: function hash(key) {
+                key = CryptoJS.SHA256(key, SECRET_KEY);
+        
+                return key.toString();
+            },
+            encrypt: function encrypt(data) {
+                data = CryptoJS.AES.encrypt(data, SECRET_KEY);
+        
+                data = data.toString();
+        
+                return data;
+            },
+            decrypt: function decrypt(data) {
+                data = CryptoJS.AES.decrypt(data, SECRET_KEY);
+        
+                data = data.toString(CryptoJS.enc.Utf8);
+        
+                return data;
+            }
         });
 
         this.user = null;
     }
 
     getUser() {
-        return this.store.get('user');
+        return this.store.getItem('user');
     }
 
     setUser(params) {
-        this.store.set('user', params.data);
+        this.store.setItem('user', params.data);
+        this.store.setItem('theme', params.data.theme);
+        this.store.setItem('authent', params.data.authent_name);
+    }
+
+    putUser(params) {
+        this.store.setItem('user', params);
     }
 
     getMenus() {
-        return this.store.get('menus');
+        return this.store.getItem('menus');
+    }
+
+    authent() {
+        return this.store.getItem('authent');
     }
 
     theme() {
-        return (this.store.get('user')).theme;
+        return this.store.getItem('theme');
+    }
+
+    setTheme(value) {
+        this.store.setItem('theme', value);
     }
 
     setMenus(params) {
-        this.store.set('menus', params);
+        this.store.setItem('menus', params);
     }
 
     token() {
@@ -36,9 +72,8 @@ class Authenticate
     }
 
     signout() {
-        this.store.remove('menus');
-        this.store.remove('user');
-
+        this.store.clear();
+        
         document.getElementById('signout').submit();
     }
 }

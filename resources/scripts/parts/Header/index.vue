@@ -1,7 +1,7 @@
 <template>
     <div class="v-header">
         <div class="v-header__search" :class="{ 'v-header__search--active': searchActive }">
-            <div class="v-search">
+            <div class="v-search" :class="theme + ' lighten-5'">
                 <input ref="input" :value="search" 
                     @input="bouncing" 
                     @focus="onFocus = true"
@@ -120,6 +120,7 @@ export default {
         searchActive: false,
         onFocus: false,
         token: null,
+        theme: null,
 
         user: {
             email: undefined,
@@ -130,14 +131,18 @@ export default {
     created() {
         this.search = this.value;
 
-        this.user = this.$root.user;
+        let utest = this.$auth.getUser();
 
-        if (typeof this.user.name === 'undefined' || typeof this.user.email === 'undefined') {
+        if (!utest || typeof utest.name === 'undefined' || typeof utest.email === 'undefined') {
             this.fetchUser();
         } else {
+            this.user = utest;
+
             if (!this.$root.theme) {
                 this.$root.theme = this.$auth.theme();
-            }    
+            } else {
+                this.theme = this.$root.theme;
+            }
         }
     },
 
@@ -150,6 +155,7 @@ export default {
             try {
                 let user = await this.$http.get('/api/user');
                 this.$auth.setUser(user.data);    
+                this.user = this.$auth.getUser();
                 this.$root.user = this.$auth.getUser();
                 this.$root.theme = this.$auth.theme();
             } catch (error) {
@@ -192,6 +198,10 @@ export default {
 
         '$root.user': function(newval) {
             this.user = newval;
+        },
+
+        '$root.theme': function(newval){
+            this.theme = newval;
         }
     }
 };

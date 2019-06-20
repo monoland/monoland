@@ -40,7 +40,9 @@ export const FormProvider = {
             onFind: false,
             onEdit: false,
             onDelete: false,
-            onImport: false
+            onImport: false,
+            onPreview: false,
+            onLocked: false
         },
 
         searchText: null,
@@ -83,10 +85,6 @@ export const FormProvider = {
         closeLoader: function() {
             window.setTimeout(() => {
                 this.table.loader = false;
-
-                // if (this.form.onFind) {
-                //     this.$refs.elmInput.focus();
-                // }
             }, 500);
         },
 
@@ -121,10 +119,6 @@ export const FormProvider = {
 
         openFind: function() {
             this.form.onFind = true;
-
-            // this.$nextTick(() => {
-            //     this.$refs.elmInput.focus();
-            // });
         },
 
         submitForm: function() {
@@ -153,11 +147,18 @@ export const FormProvider = {
             this.form.onShow = true;
         },
 
+        afterAddnew: function() {},
         beforeAddnew: function() {},
+        cancelAddnew: function() { return false; },
 
         postAddnew: async function() {
             try {
                 this.beforeAddnew();
+
+                if (this.cancelAddnew()) {
+                    this.form.onShow = false;
+                    return;
+                }
 
                 let {data: {data}} = await this.$http.post(
                     this.dataUrl, this.record
@@ -166,6 +167,8 @@ export const FormProvider = {
                 this.records.push(data);
                 this.form.onShow = false;
                 this.$message = 'proses simpan berhasil!';
+
+                this.afterAddnew();
             } catch (error) {
                 this.$error = error;
             }
@@ -183,11 +186,18 @@ export const FormProvider = {
             this.form.onShow = true;
         },
 
+        afterUpdate: function() {},
         beforeUpdate: function() {},
+        cancelUpdate: function() { return false },
 
         postUpdate: async function() {
             try {
                 this.beforeUpdate();
+
+                if (this.cancelUpdate()) {
+                    this.form.onShow = false;
+                    return;
+                }
 
                 let {data: {data}} = await this.$http.put(
                     this.dataUrl + '/' + this.primaryKey(), this.record
@@ -196,6 +206,8 @@ export const FormProvider = {
                 this.record = data;
                 this.form.onShow = false;
                 this.$message = 'proses update berhasil!';
+
+                this.afterUpdate();
             } catch (error) {
                 this.$error = error;
             }
@@ -209,11 +221,18 @@ export const FormProvider = {
             this.form.onDelete = true;
         },
 
+        afterDelete: function() {},
         beforeDelete: function() {},
+        cancelDelete: function() { return false },
 
         postDelete: async function() {
             try {
                 this.beforeDelete();
+
+                if (this.cencelDelete()) {
+                    this.form.onDelete = false;
+                    return;
+                }
 
                 let response;
 
@@ -250,7 +269,81 @@ export const FormProvider = {
 
         overideState: function() {},
         
-        openLink: function() {}
+        openLink: function() {},
+
+        formatCurrency: function(money) {
+            if (!money) return 0;
+            
+            return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+
+        spellCurrency: function(money) {
+            let sentence = '';
+            let number = new Array('0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0');
+            let word = new Array('','satu','dua','tiga','empat','lima','enam','tujuh','delapan','sembilan');
+            let grade = new Array('','ribu','juta','milyar','triliun');
+            let numberLength = money.length;
+
+            if (numberLength > 15) return;
+
+            for(let i = 1; i <= numberLength; i++) {
+                number[i] = money.substr(-(i), 1);
+            }
+
+            let i = 1; 
+            let j = 0;
+
+            while(i <= numberLength) {
+                let subSentence = '';
+                let word1 = '';
+                let word2 = '';
+                let word3 = '';
+
+                if (number[i+2] !== '0') {
+                    if (number[i+2] === '1') {
+                        word1 = 'seratus';
+                    } else {
+                        word1 = word[number[i+2]] + ' ratus';
+                    }
+                }
+
+                if (number[i+1] !== '0') {
+                    if (number[i+1] === '1') {
+                        if (number[i] === '0') {
+                            word2 = 'sepuluh';
+                        } else if (number[i] === '1') {
+                            word2 = 'sebelas';
+                        } else {
+                            word2 = word[number[i]] + ' belas';
+                        }
+                    } else {
+                        word2 = word[number[i+1]] + ' puluh';
+                    }
+                }
+
+                if (number[i] !== '0') {
+                    if (number[i+1] !== '1') {
+                        word3 = word[number[i]];
+                    }
+                }
+
+                if ((number[i] !== '0') || (number[i+1] !== '0') || (number[i+2] !== '0')){
+                    subSentence = word1 + ' ' + word2 + ' ' + word3 + ' ' + grade[j] + ' ';
+                }
+
+                sentence = subSentence + sentence;
+                i = i + 3;
+                j = j + 1;
+            }
+
+            if ((number[5] === '0') && (number[6] === '0')) {
+                sentence = sentence.replace('satu ribu', 'seribu');
+            }
+
+            sentence = sentence.replace(/ +(?= )/g,'').trim() + ' rupiah';
+
+            return sentence.charAt(0).toUpperCase() + sentence.slice(1);
+        }
     },
 
     watch: {

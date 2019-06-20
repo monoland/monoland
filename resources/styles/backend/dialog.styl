@@ -1,3 +1,20 @@
 .v-dialog
-    box-shadow: none
-    overflow-y: visible
+    &:not(.v-dialog--fullscreen)
+        box-shadow: none
+        overflow-y: visible
+    
+    &.v-dialog--fullscreen
+        .v-card.v-sheet:not(.v-card--thin)
+            margin-top: -56px
+            margin-bottom: 56px
+
+        .v-subheader
+            height: 24px
+
+        .flex.jcc
+            display: flex
+            justify-content: center
+        
+        .flex.end
+            display: flex
+            justify-content: flex-end

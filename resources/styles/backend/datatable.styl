@@ -1,3 +1,30 @@
+.v-thinable
+    .v-datatable
+        thead
+            tr:not(.v-datatable__progress)
+                height: 36px !important
+
+                th
+                    padding: 4px 16px
+                
+                th.actions
+                    padding: 0
+                    width: 16px
+        
+        tbody
+            tr td
+                padding: 0 16px
+                height: 36px
+            
+            tr td.actions
+                padding: 0
+                text-align: center
+
+                .v-icon
+                    cursor: pointer
+                    user-select: none
+
+
 .v-datatable
     &__message
         display: flex
@@ -31,6 +58,14 @@
 
         th.date-updated
             width: 169px
+        
+        th.pricetag
+            text-align: right
+            width: 75px
+
+        th.icontag
+            padding: 0 8px !important;
+            width: 45px
     
     tbody
         tr td
@@ -39,3 +74,11 @@
 
                 + td
                     padding-left: 0
+        
+        tr td p
+            margin-bottom: 0
+
+        tr td.icontag
+            padding: 0 8px !important;
+            text-align: center !important
+            width: 45px

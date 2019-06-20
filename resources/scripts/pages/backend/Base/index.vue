@@ -3,7 +3,7 @@
         <v-navigation-drawer width="240" fixed app>
             <v-list class="v-list--navdraw">
                 <template v-for="(menu, index) in menus">
-                    <v-list-tile :active-class="theme" :to="menu.to" v-if="menu.type === 'item'">
+                    <v-list-tile :active-class="theme + ' white--text'" :to="menu.to" v-if="menu.type === 'item'">
                         <v-list-tile-action><v-icon>{{ menu.icon }}</v-icon></v-list-tile-action>
                         <v-list-tile-content>
                             <v-list-tile-title>{{ menu.text }}</v-list-tile-title>
@@ -35,7 +35,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-content>
+        <v-content :class="theme + ' lighten-5'">
             <div class="v-page">
                 <router-view :key="$route.path"></router-view>
 
@@ -71,7 +71,7 @@ export default {
     }),
 
     created() {
-        this.theme = this.$root.theme + ' white--text';
+        this.theme = this.$root.theme;
     },
 
     mounted() {
@@ -98,7 +98,7 @@ export default {
 
     watch: {
         '$root.theme': function(newval) {
-            this.theme = newval + ' white--text';
+            this.theme = newval;
         }
     }
 };

@@ -27,11 +27,12 @@
                                         v-model="record.email"
                                     ></v-text-field>
 
-                                    <v-text-field
+                                    <v-select
                                         label="Warna Thema"
                                         :color="$root.theme"
+                                        :items="colors"
                                         v-model="record.theme"
-                                    ></v-text-field>
+                                    ></v-select>
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -57,11 +58,33 @@ export default {
             name: null,
             email: null,
             theme: null
-        }
+        },
+
+        colors: [
+            { value: 'red', text: 'Red'},
+            { value: 'pink', text: 'Pink'},
+            { value: 'purple', text: 'Purple'},
+            { value: 'deep-purple', text: 'Deep Purple'},
+            { value: 'indigo', text: 'Indigo'},
+            { value: 'blue', text: 'Blue'},
+            { value: 'light-blue', text: 'Light Blue'},
+            { value: 'cyan', text: 'Cyan'},
+            { value: 'teal', text: 'Teal'},
+            { value: 'green', text: 'Green'},
+            { value: 'light-green', text: 'Light Green'},
+            { value: 'lime', text: 'Lemon'},
+            { value: 'yellow', text: 'Yellow'},
+            { value: 'amber', text: 'Amber'},
+            { value: 'orange', text: 'Orange'},
+            { value: 'deep-orange', text: 'Deep Orange'},
+            { value: 'brown', text: 'Brown'},
+            { value: 'blue-grey', text: 'Blue Grey'},
+            { value: 'grey', text: 'Grey'},
+        ]
     }),
 
     created() {
-        this.record = this.$root.user;
+        this.record = this.$auth.getUser();
     },
 
     methods: {
@@ -70,19 +93,15 @@ export default {
                 let {data: {data}} = await this.$http.put(
                     '/api/profile', this.record
                 );
-
+                
+                this.$auth.setTheme(this.record.theme);
+                this.$auth.putUser(this.record);
                 this.$root.theme = this.record.theme;
                 this.$message = 'update profile berhasil!';
             } catch (error) {
                 this.$error = error;
             }
         },
-    },
-
-    watch: {
-        '$root.user': function(newval) {
-            this.record = newval;
-        }
     }
 };
 </script>

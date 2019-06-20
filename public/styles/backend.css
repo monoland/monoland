@@ -10604,6 +10604,18 @@ table.v-table tfoot tr td {
   width: 36px;
   border-radius: 5px;
 }
+.v-card.v-sheet p.describe {
+  color: #999;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5em;
+}
+.v-card.v-sheet h3.title {
+  color: #3c4858;
+  font-size: 26px !important;
+  font-weight: 300;
+  line-height: 1.4em !important;
+}
 .v-card__account {
   width: 250px;
 }
@@ -10649,6 +10661,46 @@ table.v-table tfoot tr td {
 .v-card__profile--offset {
   margin-top: -48px;
 }
+.v-card__header {
+  margin: 24px 24px 0;
+}
+.v-card__header.icon {
+  text-align: right;
+}
+.v-card__header.icon > .v-sheet {
+  float: left;
+  padding: 24px;
+  margin-right: 16px;
+  margin-top: -24px;
+}
+.v-card__header.icon > p.describe {
+  padding-top: 16px;
+}
+.v-thinable .v-datatable thead tr:not(.v-datatable__progress) {
+  height: 36px !important;
+}
+.v-thinable .v-datatable thead tr:not(.v-datatable__progress) th {
+  padding: 4px 16px;
+}
+.v-thinable .v-datatable thead tr:not(.v-datatable__progress) th.actions {
+  padding: 0;
+  width: 16px;
+}
+.v-thinable .v-datatable tbody tr td {
+  padding: 0 16px;
+  height: 36px;
+}
+.v-thinable .v-datatable tbody tr td.actions {
+  padding: 0;
+  text-align: center;
+}
+.v-thinable .v-datatable tbody tr td.actions .v-icon {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
 .v-datatable__message {
   display: flex;
   align-items: center;
@@ -10679,15 +10731,46 @@ table.v-table tfoot tr td {
 .v-datatable thead th.date-updated {
   width: 169px;
 }
+.v-datatable thead th.pricetag {
+  text-align: right;
+  width: 75px;
+}
+.v-datatable thead th.icontag {
+  padding: 0 8px !important;
+  width: 45px;
+}
 .v-datatable tbody tr td:first-child {
   width: 80px;
 }
 .v-datatable tbody tr td:first-child + td {
   padding-left: 0;
 }
-.v-dialog {
+.v-datatable tbody tr td p {
+  margin-bottom: 0;
+}
+.v-datatable tbody tr td.icontag {
+  padding: 0 8px !important;
+  text-align: center !important;
+  width: 45px;
+}
+.v-dialog:not(.v-dialog--fullscreen) {
   box-shadow: none;
   overflow-y: visible;
+}
+.v-dialog.v-dialog--fullscreen .v-card.v-sheet:not(.v-card--thin) {
+  margin-top: -56px;
+  margin-bottom: 56px;
+}
+.v-dialog.v-dialog--fullscreen .v-subheader {
+  height: 24px;
+}
+.v-dialog.v-dialog--fullscreen .flex.jcc {
+  display: flex;
+  justify-content: center;
+}
+.v-dialog.v-dialog--fullscreen .flex.end {
+  display: flex;
+  justify-content: flex-end;
 }
 .v-header {
   transition: none;
