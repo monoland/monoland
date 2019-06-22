@@ -17,6 +17,8 @@ class SettingsTableSeeder extends Seeder
         $model->name = 'Monoland';
         $model->slogan = 'Build your apps with passion';
         $model->avatar = null;
+        $model->height = '120px';
+        $model->width = '120px';
         $model->save();
     }
 }

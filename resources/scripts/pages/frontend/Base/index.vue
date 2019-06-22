@@ -8,7 +8,7 @@
             <v-container fill-height>
                 <v-layout align-center justify-center>
                     <div class="message-box">
-                        <div class="message-logo">
+                        <div class="message-logo" :style="'height: '+ height +'; width: ' + width + ';'">
                             <div class="message-logo__wrap">
                                 <img :src="logo" alt="logo">
                             </div>
@@ -43,6 +43,8 @@ export default {
         snackbar: false,
         message: null,
         logo: null,
+        height: 0,
+        width: 0,
         company: null,
         slogan: null
     }),
@@ -74,6 +76,8 @@ export default {
                 }
                 this.company = data.meta.name;
                 this.slogan = data.meta.slogan;
+                this.height = data.meta.height;
+                this.width = data.meta.width;
             } catch (error) {
                 this.$error = error;
             }

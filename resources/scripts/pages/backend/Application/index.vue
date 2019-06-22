@@ -21,12 +21,30 @@
                                         :color="$root.theme"
                                         v-model="record.meta.name"
                                     ></v-text-field>
+                                </v-flex>
 
+                                <v-flex md12>
                                     <v-textarea
                                         label="Slogan"
                                         :color="$root.theme"
                                         v-model="record.meta.slogan"
                                     ></v-textarea>
+                                </v-flex>
+
+                                <v-flex md6>
+                                    <v-text-field
+                                        label="Tinggi Logo"
+                                        :color="$root.theme"
+                                        v-model="record.meta.height"
+                                    ></v-text-field>
+                                </v-flex>
+
+                                <v-flex md6>
+                                    <v-text-field
+                                        label="Lebar Logo"
+                                        :color="$root.theme"
+                                        v-model="record.meta.width"
+                                    ></v-text-field>
                                 </v-flex>
                             </v-layout>
                         </v-container>

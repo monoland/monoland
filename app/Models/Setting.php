@@ -99,6 +99,8 @@ class Setting extends Model
                 $model->name = $request->meta['name'];
                 $model->slogan = $request->meta['slogan'];
                 $model->avatar = $request->meta['avatar'];
+                $model->height = $request->meta['height'];
+                $model->width = $request->meta['width'];
             }
 
             $model->save();
@@ -125,6 +127,8 @@ class Setting extends Model
                 $model->name = $request->meta['name'];
                 $model->slogan = $request->meta['slogan'];
                 $model->avatar = $request->meta['avatar'];
+                $model->height = $request->meta['height'];
+                $model->width = $request->meta['width'];
             }
 
             $model->save();
