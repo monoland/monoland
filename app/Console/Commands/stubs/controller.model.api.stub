@@ -16,6 +16,8 @@ class DummyClass extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', DummyModelClass::class);
+        
         return new DummyModelClassCollection(
             DummyModelClass::filterOn($request)->paginate($request->rowsPerPage)
         );
@@ -29,6 +31,8 @@ class DummyClass extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', DummyModelClass::class);
+
         $this->validate($request, [
             //
         ]);
@@ -56,6 +60,8 @@ class DummyClass extends Controller
      */
     public function update(Request $request, DummyModelClass $DummyModelVariable)
     {
+        $this->authorize('update', $DummyModelVariable);
+
         $this->validate($request, [
             //
         ]);
@@ -71,6 +77,8 @@ class DummyClass extends Controller
      */
     public function destroy(DummyModelClass $DummyModelVariable)
     {
+        $this->authorize('delete', $DummyModelVariable);
+
         return DummyModelClass::destroyRecord($DummyModelVariable);
     }
 
@@ -82,6 +90,8 @@ class DummyClass extends Controller
      */
     public function bulkdelete(Request $request)
     {
+        $this->authorize('bulkDelete', DummyModelClass::class);
+
         return DummyModelClass::bulkDelete($request);
     }
 

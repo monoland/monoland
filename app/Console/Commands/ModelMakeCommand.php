@@ -41,42 +41,22 @@ class ModelMakeCommand extends GeneratorCommand
         }
 
         if ($this->option('all')) {
-            $this->input->setOption('factory', true);
             $this->input->setOption('migration', true);
-            $this->input->setOption('controller', true);
+            $this->input->setOption('policy', true);
             $this->input->setOption('resource', true);
-        }
-
-        if ($this->option('factory')) {
-            $this->createFactory();
         }
 
         if ($this->option('migration')) {
             $this->createMigration();
         }
 
-        if ($this->option('controller')) {
-            $this->createController();
+        if ($this->option('policy')) {
+            $this->createPolicy();
         }
 
         if ($this->option('resource')) {
             $this->createResource();
         }
-    }
-
-    /**
-     * Create a model factory for the model.
-     *
-     * @return void
-     */
-    protected function createFactory()
-    {
-        $factory = Str::studly(class_basename($this->argument('name')));
-
-        $this->call('monoland:factory', [
-            'name' => "{$factory}Factory",
-            '--model' => $this->argument('name'),
-        ]);
     }
 
     /**
@@ -88,9 +68,9 @@ class ModelMakeCommand extends GeneratorCommand
     {
         $table = Str::plural(Str::snake(class_basename($this->argument('name'))));
 
-        if ($this->option('pivot')) {
-            $table = Str::singular($table);
-        }
+        // if ($this->option('pivot')) {
+        //     $table = Str::singular($table);
+        // }
 
         $this->call('monoland:migration', [
             'name' => "create_{$table}_table",
@@ -99,19 +79,19 @@ class ModelMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Create a controller for the model.
+     * Create a policy for the model.
      *
      * @return void
      */
-    protected function createController()
+    protected function createPolicy()
     {
-        $controller = Str::studly(class_basename($this->argument('name')));
+        $policy = Str::studly(class_basename($this->argument('name')));
 
         $modelName = $this->qualifyClass($this->getNameInput());
 
-        $this->call('monoland:controller', [
-            'name' => "{$controller}Controller",
-            '--model' => $this->option('resource') ? $modelName : null,
+        $this->call('monoland:policy', [
+            'name' => "{$policy}Policy",
+            '--model' => "Models/{$policy}",
         ]);
     }
 
@@ -135,9 +115,9 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        if ($this->option('pivot')) {
-            return __DIR__ . '/stubs/pivot.model.stub';
-        }
+        // if ($this->option('pivot')) {
+        //     return __DIR__ . '/stubs/pivot.model.stub';
+        // }
 
         return __DIR__ . '/stubs/model.stub';
     }
@@ -163,15 +143,11 @@ class ModelMakeCommand extends GeneratorCommand
         return [
             ['all', 'a', InputOption::VALUE_NONE, 'Generate a migration, factory, and resource controller for the model'],
 
-            ['controller', 'c', InputOption::VALUE_NONE, 'Create a new controller for the model'],
-
-            ['factory', 'f', InputOption::VALUE_NONE, 'Create a new factory for the model'],
-
             ['force', null, InputOption::VALUE_NONE, 'Create the class even if the model already exists'],
 
             ['migration', 'm', InputOption::VALUE_NONE, 'Create a new migration file for the model'],
 
-            ['pivot', 'p', InputOption::VALUE_NONE, 'Indicates if the generated model should be a custom intermediate table model'],
+            ['policy', 'p', InputOption::VALUE_NONE, 'Create a new policy file for the model'],
 
             ['resource', 'r', InputOption::VALUE_NONE, 'Indicates if the generated an resource'],
         ];
