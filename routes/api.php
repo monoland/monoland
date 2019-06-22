@@ -12,7 +12,7 @@ Route::middleware('auth:api')->group(function() {
     Route::put('/password', 'Monoland\AppsController@password');
     
     Route::get('authent/combo', 'Monoland\AuthentController@combo');
-    Route::post('users/bulks', 'Monoland\UserController@bulks');
+    Route::post('users/bulkdelete', 'Monoland\UserController@bulkdelete');
     Route::resource('users', 'Monoland\UserController');
     Route::resource('setting', 'Monoland\SettingController');
 

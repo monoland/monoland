@@ -17,6 +17,8 @@ class SettingController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Setting::class);
+
         return new SettingCollection(
             Setting::filterOn($request)->paginate($request->rowsPerPage)
         );
@@ -30,6 +32,8 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Setting::class);
+
         $this->validate($request, [
             //
         ]);
@@ -45,6 +49,8 @@ class SettingController extends Controller
      */
     public function show(Setting $setting)
     {
+        $this->authorize('view', $setting);
+
         return new SettingResource($setting);
     }
 
@@ -57,6 +63,8 @@ class SettingController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
+        $this->authorize('update', $setting);
+
         $this->validate($request, [
             //
         ]);
@@ -72,6 +80,8 @@ class SettingController extends Controller
      */
     public function destroy(Setting $setting)
     {
+        $this->authorize('delete', $setting);
+
         return Setting::destroyRecord($setting);
     }
 
@@ -83,6 +93,8 @@ class SettingController extends Controller
      */
     public function bulks(Request $request)
     {
+        $this->authorize('bulkDelete', Setting::class);
+        
         return Setting::bulksRecord($request);
     }
 

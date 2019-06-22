@@ -41,9 +41,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function authent()
     {
         return $this->belongsTo(Authent::class);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return boolean
+     */
+    public function isAdministrator()
+    {
+        return $this->authent->name === 'administrator';
     }
 
     /**
@@ -180,7 +195,7 @@ class User extends Authenticatable
     /**
      * Bulks
      */
-    public static function bulksRecord($request, $model = null)
+    public static function bulkDelete($request, $model = null)
     {
         DB::beginTransaction();
 

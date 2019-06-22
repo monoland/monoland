@@ -75,14 +75,14 @@ class DummyClass extends Controller
     }
 
     /**
-     * Remove the bulks resource from storage.
+     * Remove the bulkdelete resource from storage.
      *
      * @param  \DummyFullModelClass  $DummyModelVariable
      * @return \Illuminate\Http\Response
      */
-    public function bulks(Request $request)
+    public function bulkdelete(Request $request)
     {
-        return DummyModelClass::bulksRecord($request);
+        return DummyModelClass::bulkDelete($request);
     }
 
     /**

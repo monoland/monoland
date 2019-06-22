@@ -16,6 +16,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', User::class);
+
         return new UserCollection(
             User::filterOn($request)->paginate($request->rowsPerPage)
         );
@@ -29,6 +31,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', User::class);
+
         $this->validate($request, [
             //
         ]);
@@ -56,6 +60,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $this->validate($request, [
             //
         ]);
@@ -71,18 +77,22 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
+
         return User::destroyRecord($user);
     }
 
     /**
-     * Remove the bulks resource from storage.
+     * Remove the bulkdelete resource from storage.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function bulks(Request $request)
+    public function bulkdelete(Request $request)
     {
-        return User::bulksRecord($request);
+        $this->authorize('bulkDelete', User::class);
+
+        return User::bulkDelete($request);
     }
 
     /**

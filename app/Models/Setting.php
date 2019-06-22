@@ -18,7 +18,7 @@ class Setting extends Model
      *
      * @var bool
      */
-    public $incrementing = false;
+    public $incrementing = true;
 
     /**
      * The "type" of the auto-incrementing ID.

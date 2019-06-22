@@ -12,7 +12,7 @@ class AuthentsTableSeeder extends Seeder
      */
     public function run()
     {
-        Authent::create(['name' => 'administator']);
+        Authent::create(['name' => 'administrator']);
         // Authent::create(['name' => 'manager']);
         // Authent::create(['name' => 'operator']);
     }
