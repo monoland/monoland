@@ -53,6 +53,7 @@ class AppsController extends Controller
             ['type' => 'item', 'icon' => 'dashboard', 'text' => 'Beranda', 'to' => ['name' => 'dashboard']],
             ['type' => 'subheader', 'text' => 'Masters', 'class' => 'mt-2'],
             ['type' => 'item', 'icon' => 'people', 'text' => 'Pengguna', 'to' => ['name' => 'user']],
+            ['type' => 'item', 'icon' => 'whatshot', 'text' => 'OAuth Apps', 'to' => ['name' => 'client']],
         ]);
     }
 }

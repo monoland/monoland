@@ -40,8 +40,8 @@
                                     ></v-checkbox>
                                 </td>
                                 <td>{{ props.item.name }}</td>
-                                <td>{{ props.item.email }}</td>
-                                <td>{{ props.item.authent_name }}</td>
+                                <td>{{ props.item.redirect }}</td>
+                                <td v-html="props.item.lockicon"></td>
                                 <td>{{ props.item.updated_at }}</td>
                             </tr>
                         </template>
@@ -67,23 +67,29 @@
                 >
                     <v-flex xs12>
                         <v-text-field
-                            label="Nama Pengguna"
+                            label="Nama Klien"
                             color="blue-grey"
                             v-model="record.name"
                         ></v-text-field>
 
-                        <v-text-field
-                            label="Email Pengguna"
+                        <v-textarea v-if="form.onEdit"
+                            label="Rahasia"
                             color="blue-grey"
-                            v-model="record.email"
-                        ></v-text-field>
+                            v-model="record.secret"
+                        ></v-textarea>
 
                         <v-select
-                            :items="authorizations"
-                            label="Otentikasi"
+                            :items="statuses"
+                            label="Status"
                             color="blue-grey"
-                            v-model="record.authent_id"
+                            v-model="record.revoked"
                         ></v-select>
+
+                        <v-text-field
+                            label="Redirect"
+                            color="blue-grey"
+                            v-model="record.redirect"
+                        ></v-text-field>
                     </v-flex>
                 </v-dialog-form>
 
@@ -103,41 +109,39 @@
 import { FormProvider } from '@scripts/mixins/FormProvider';
 
 export default {
-    name: 'page-user',
+    name: 'page-client',
 
     mixins: [FormProvider],
 
     data:() => ({
         headers: [
-            { text: 'Name', value: 'name' },
-            { text: 'Email', value: 'email' },
-            { text: 'Otentikasi', value: 'authorization' },
+            { text: 'Nama', value: 'name' },
+            { text: 'Redirect', value: 'redirect' },
+            { text: 'Revoke', value: 'revoked', sortable: false, align: 'center', class: 'icontag' },
             { text: 'Updated', value: 'updated_at', class: 'date-updated' }
         ],
 
         page: {
-            icon: 'people',
-            title: 'Pengguna',
+            icon: 'whatshot',
+            title: 'OAuth Apps',
         },
 
-        authorizations: [],
+        statuses: [
+            { value: false, text: 'active' },
+            { value: true, text: 'revoked' }
+        ],
 
-        dataUrl: '/api/users'
+        dataUrl: '/api/client'
     }),
-
-    created() {
-        this.fetchCombo('/api/authent/combo', (result) => {
-            this.authorizations = result;
-        });
-    },
 
     methods: {
         newRecord: function() {
             this.record = {
                 id: null,
                 name: null,
-                email: null,
-                authent_id: null
+                secret: null,
+                revoked: null,
+                redirect: null
             };
         }
     }

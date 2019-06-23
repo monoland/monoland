@@ -4,16 +4,23 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import * as backend from '@scripts/pages/backend';
+import * as apps from '@scripts/pages/apps';
 
 export default new VueRouter({
     routes: [
         { path: '/', component: backend.Base, children: [
+            // backend
             { path: '', redirect: { name: 'dashboard' }},
             { path: 'application', name: 'application', component: backend.Application },
+            { path: 'client', name: 'client', component: backend.Client },
             { path: 'dashboard', name: 'dashboard', component: backend.Dashboard },
             { path: 'password', name: 'password', component: backend.Password },
             { path: 'profile', name: 'profile', component: backend.Profile },
             { path: 'user', name: 'user', component: backend.User },
+
+            // application
+
+            // fallback
             { path: '*', redirect: { name: 'dashboard' }},
         ]}
     ]

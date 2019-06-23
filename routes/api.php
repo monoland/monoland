@@ -15,6 +15,7 @@ Route::middleware('auth:api')->group(function() {
     Route::post('users/bulkdelete', 'Monoland\UserController@bulkdelete');
     Route::resource('users', 'Monoland\UserController');
     Route::resource('setting', 'Monoland\SettingController');
+    Route::resource('client', 'Monoland\ClientController');
 
     Route::post('media', 'Monoland\MediaController@store');
     Route::delete('media/{media}', 'Monoland\MediaController@destroy');
