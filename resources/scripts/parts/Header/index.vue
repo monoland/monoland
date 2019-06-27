@@ -18,9 +18,11 @@
         </div>
 
         <div class="v-header__content">
-            <v-btn class="ma-0" icon>
-                <v-icon>menu</v-icon>
-            </v-btn>
+            <slot name="navigate">
+                <v-btn class="ma-0" icon>
+                    <v-icon>menu</v-icon>
+                </v-btn>
+            </slot>
 
             <div class="v-header__title title font-weight-light ml-3">{{ title }}</div>
 

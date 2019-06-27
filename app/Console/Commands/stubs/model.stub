@@ -74,12 +74,12 @@ class DummyClass extends Model
     {
         $sortaz = $request->descending === 'true' ? 'desc' : 'asc';
         $sortby = $request->has('sortBy') ? $request->sortBy : null;
-        $filter = $request->has('filter') ? $request->filter : null;
+        $search = $request->has('search') ? strtolower($request->search) : null;
 
         $mixquery = $query;
 
-        if ($filter) {
-            $mixquery = $mixquery->where('name', 'like', "%{$filter}%");
+        if ($search) {
+            $mixquery = $mixquery->whereRaw("LOWER(name) LIKE '%{$search}%'");
         }
 
         if ($sortby) {

@@ -89,7 +89,7 @@ export const FormProvider = {
         },
 
         closeFinder: function() {
-            this.searchText = this.tablePaging.filter = null;
+            this.searchText = this.tablePaging.search = null;
             this.form.onFind = false;
         },
 
@@ -171,6 +171,7 @@ export const FormProvider = {
                 this.afterAddnew();
             } catch (error) {
                 this.$error = error;
+                this.form.onShow = false;
             }
         },
 
@@ -206,10 +207,12 @@ export const FormProvider = {
                 this.record = data;
                 this.form.onShow = false;
                 this.$message = 'proses update berhasil!';
+                this.selected = [];
 
                 this.afterUpdate();
             } catch (error) {
                 this.$error = error;
+                this.form.onShow = false;
             }
         },
 
@@ -275,6 +278,17 @@ export const FormProvider = {
             if (!money) return 0;
             
             return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        },
+
+        moveIndex: function(item, delta) {
+            let arr = this.record.details;
+            let idx = arr.findIndex(obj => obj.value === item.value);
+            let idn = idx + delta;
+
+            if (idx <= 0 || idn === arr.length) return;
+
+            let ids = [idx, idn].sort((a, b) => a - b);
+            arr.splice(ids[0], 2, arr[ids[1]], arr[ids[0]]);
         },
 
         spellCurrency: function(money) {
@@ -359,18 +373,18 @@ export const FormProvider = {
 
         searchText: function(newval, oldval) {
             if (newval && (newval.length > 0)) {
-                if (!this.tablePaging.hasOwnProperty('filter')) {
+                if (!this.tablePaging.hasOwnProperty('search')) {
                     this.tablePaging = Object.assign({
-                        filter: this.searchText
+                        search: this.searchText
                     }, this.tablePaging);
                 } else {
-                    this.tablePaging.filter = this.searchText;
+                    this.tablePaging.search = this.searchText;
                 }
 
                 this.searchState = true;
             } else {
                 if (oldval && (oldval.length > 0)) {
-                    this.tablePaging.filter = null;
+                    this.tablePaging.search = null;
                 }
 
                 this.searchState = false;

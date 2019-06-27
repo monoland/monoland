@@ -6,8 +6,9 @@
             v-model="searchText"
             @close="closeFinder"
         >
+            <!-- <v-btn icon class="ma-0" slot="navigate" @click="backToSegment"><v-icon>arrow_back</v-icon></v-btn> -->
+
             <v-btn-simple :disabled="disabled.add" tips="tambah" icon="add" @click="openNewForm"></v-btn-simple>
-            <!-- <v-btn-simple :disabled="disabled.link" tips="link" icon="folder"></v-btn-simple> -->
             <v-btn-simple :disabled="disabled.edit" tips="edit" icon="edit" @click="openUpdate"></v-btn-simple>
             <v-btn-simple :disabled="disabled.delete" tips="hapus" icon="delete" @click="openDelete"></v-btn-simple>
             <v-btn-simple :disabled="disabled.refresh" tips="refresh" icon="refresh" @click="refresh"></v-btn-simple>
@@ -68,20 +69,20 @@
                     <v-flex xs12>
                         <v-text-field
                             label="Nama Pengguna"
-                            color="blue-grey"
+                            :color="$root.theme"
                             v-model="record.name"
                         ></v-text-field>
 
                         <v-text-field
                             label="Email Pengguna"
-                            color="blue-grey"
+                            :color="$root.theme"
                             v-model="record.email"
                         ></v-text-field>
 
                         <v-select
                             :items="authorizations"
                             label="Otentikasi"
-                            color="blue-grey"
+                            :color="$root.theme"
                             v-model="record.authent_id"
                         ></v-select>
                     </v-flex>

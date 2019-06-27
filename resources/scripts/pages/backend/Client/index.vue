@@ -7,7 +7,6 @@
             @close="closeFinder"
         >
             <v-btn-simple :disabled="disabled.add" tips="tambah" icon="add" @click="openNewForm"></v-btn-simple>
-            <!-- <v-btn-simple :disabled="disabled.link" tips="link" icon="folder"></v-btn-simple> -->
             <v-btn-simple :disabled="disabled.edit" tips="edit" icon="edit" @click="openUpdate"></v-btn-simple>
             <v-btn-simple :disabled="disabled.delete" tips="hapus" icon="delete" @click="openDelete"></v-btn-simple>
             <v-btn-simple :disabled="disabled.refresh" tips="refresh" icon="refresh" @click="refresh"></v-btn-simple>
@@ -68,26 +67,26 @@
                     <v-flex xs12>
                         <v-text-field
                             label="Nama Klien"
-                            color="blue-grey"
+                            :color="$root.theme"
                             v-model="record.name"
                         ></v-text-field>
 
                         <v-textarea v-if="form.onEdit"
                             label="Rahasia"
-                            color="blue-grey"
+                            :color="$root.theme"
                             v-model="record.secret"
                         ></v-textarea>
 
                         <v-select
                             :items="statuses"
                             label="Status"
-                            color="blue-grey"
+                            :color="$root.theme"
                             v-model="record.revoked"
                         ></v-select>
 
                         <v-text-field
                             label="Redirect"
-                            color="blue-grey"
+                            :color="$root.theme"
                             v-model="record.redirect"
                         ></v-text-field>
                     </v-flex>

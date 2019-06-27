@@ -1,7 +1,6 @@
 import Axios from 'axios';
 import * as CryptoJS from 'crypto-js';
 import SecureStorage from 'secure-web-storage';
-// import SecureLS from 'secure-ls';
 
 class Authenticate
 {
@@ -152,11 +151,27 @@ export const AuthProvider = {
                         };
 
                         this.$root.snackbar = $error;
+                    } else {
+                        $error = {
+                            color: 'error',
+                            text: 'there is an error while data process on server.',
+                            state: true
+                        };
+
+                        this.$root.snackbar = $error;
                     }
                 } else if (newval.hasOwnProperty('message')) {
                     $error = {
                         color: 'error',
                         text: newval.message,
+                        state: true
+                    };
+
+                    this.$root.snackbar = $error;
+                } else {
+                    $error = {
+                        color: 'error',
+                        text: 'there is an error while data process on server.',
                         state: true
                     };
 
