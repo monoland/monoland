@@ -47,6 +47,7 @@ export const FormProvider = {
 
         searchText: null,
         searchState: false,
+        multiselect: true,
 
         dataUrl: null,
         dataId: null,
@@ -274,6 +275,8 @@ export const FormProvider = {
         
         openLink: function() {},
 
+        afterSelected: function() {},
+
         formatCurrency: function(money) {
             if (!money) return 0;
             
@@ -406,12 +409,19 @@ export const FormProvider = {
                     this.form.onFind = false;
                     this.record = this.selected[0];
                     this.ctrlState = 'select';
+
+                    this.afterSelected(this.record);
                     break;
             
                 default:
-                    this.form.onFind = false;
-                    this.ctrlState = 'delete';
-                    break;
+                    if (!this.multiselect) {
+                        this.selected = [];
+                        this.record = {};
+                        this.ctrlState = 'default';
+                    } else {
+                        this.form.onFind = false;
+                        this.ctrlState = 'delete';    
+                    }
             }
         },
 

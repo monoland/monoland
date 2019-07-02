@@ -37,6 +37,7 @@ class Authenticate
     }
 
     setUser(params) {
+        this.store.clear();
         this.store.setItem('user', params.data);
         this.store.setItem('theme', params.data.theme);
         this.store.setItem('authent', params.data.authent_name);
