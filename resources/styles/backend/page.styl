@@ -1,3 +1,7 @@
+.animated
+    animation-duration: 0.72s;
+    animation-fill-mode: both;
+
 .v-page
     display: flex
     flex-direction: column
@@ -5,6 +9,13 @@
 
     &__wrap
         flex-grow: 1 !important
+
+        &.animated
+            position: absolute
+            width: 100%
+
+            + .v-page--foot
+                opacity: 0
     
     &--body
         &__content
