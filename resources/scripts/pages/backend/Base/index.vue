@@ -37,7 +37,9 @@
 
         <v-content :class="theme + ' lighten-5'">
             <div class="v-page">
-                <router-view :key="$route.path"></router-view>
+                <transition name="animatecss" :enter-active-class="transEnter" :leave-active-class="transLeave">
+                    <router-view :key="$route.path"></router-view>
+                </transition>
 
                 <div class="v-page--foot">
                     <div class="v-page--foot__line"></div>
@@ -67,8 +69,32 @@ export default {
 
     data:() => ({
         menus: {},
-        theme: null
+        theme: null,
+        transEnter: 'animated fadeIn',
+        transLeave: 'animated fadeOut'
     }),
+
+    beforeRouteUpdate(to, from, next) {
+        const toDepth = to.path.split('/').length;
+        const fmDepth = from.path.split('/').length;
+
+        if (toDepth > fmDepth) {
+            this.transEnter = 'animated slideInLeft';
+            this.transLeave = 'animated fadeOut';
+        }
+
+        if (toDepth < fmDepth) {
+            this.transEnter = 'animated slideInLeft';
+            this.transLeave = 'animated fadeOutLeft';
+        }
+
+        if (toDepth === fmDepth) {
+            this.transEnter = 'animated fadeIn';
+            this.transLeave = 'animated fadeOut';
+        }
+
+        next();
+    },
 
     created() {
         this.theme = this.$root.theme;

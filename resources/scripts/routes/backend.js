@@ -13,12 +13,12 @@ export default new VueRouter({
             { path: '', redirect: { name: 'dashboard' }},
             { path: 'application', name: 'application', component: backend.Application },
             { path: 'client', name: 'client', component: backend.Client },
-            { path: 'dashboard', name: 'dashboard', component: backend.Dashboard },
             { path: 'password', name: 'password', component: backend.Password },
             { path: 'profile', name: 'profile', component: backend.Profile },
             { path: 'user', name: 'user', component: backend.User },
 
             // application
+            { path: 'dashboard', name: 'dashboard', component: apps.Dashboard },
 
             // fallback
             { path: '*', redirect: { name: 'dashboard' }},
