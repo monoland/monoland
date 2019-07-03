@@ -133,7 +133,7 @@ export default {
     created() {
         this.search = this.value;
 
-        let utest = this.$auth.getUser();
+        let utest = this.$auth.user;
 
         if (!utest || typeof utest.name === 'undefined' || typeof utest.email === 'undefined') {
             this.fetchUser();
@@ -141,7 +141,7 @@ export default {
             this.user = utest;
 
             if (!this.$root.theme) {
-                this.$root.theme = this.$auth.theme();
+                this.$root.theme = this.$auth.theme;
             } else {
                 this.theme = this.$root.theme;
             }
@@ -149,17 +149,18 @@ export default {
     },
 
     mounted() {
-        this.token = this.$auth.token();
+        this.token = this.$auth.serverMode ? this.$auth.csrf : this.$auth.token;
     },
 
     methods: {
         fetchUser: async function() {
             try {
                 let user = await this.$http.get('/api/user');
-                this.$auth.setUser(user.data);    
-                this.user = this.$auth.getUser();
-                this.$root.user = this.$auth.getUser();
-                this.$root.theme = this.$auth.theme();
+                
+                this.$auth.user = user.data;
+                this.user = this.$auth.user;
+                this.$root.user = this.$auth.user;
+                this.$root.theme = this.$auth.theme;
             } catch (error) {
                 this.$error = error;   
             }

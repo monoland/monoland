@@ -60,14 +60,13 @@ export default {
 
     mounted() {
         let _this = this;
+        let _header = this.$auth.serverMode ? { 'X-CSRF-TOKEN': this.$auth.csrf } : { 'Authorization': this.$auth.token };
 
         new qq.FineUploaderBasic({
             button: document.getElementById(_this.uuid),
 
             request: {
-                customHeaders: {
-                    'X-CSRF-TOKEN': _this.$auth.token()
-                },
+                customHeaders: _header,
                 endpoint: '/api/media',
                 filenameParam: 'fileName',
                 inputName: 'fileUpload',

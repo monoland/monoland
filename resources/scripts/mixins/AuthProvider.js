@@ -30,51 +30,91 @@ class Authenticate
         });
 
         this.user = null;
+        this.mode = 'server-side';
+        this.sitekey = null;
+        this.secretKey = null;
     }
 
-    getUser() {
+    get user() {
         return this.store.getItem('user');
     }
 
-    setUser(params) {
+    set user(response) {
+        if (!response) return;
+
         this.store.clear();
-        this.store.setItem('user', params.data);
-        this.store.setItem('theme', params.data.theme);
-        this.store.setItem('authent', params.data.authent_name);
+        this.store.setItem('user', response.data);
+        this.store.setItem('theme', response.data.theme);
+        this.store.setItem('authent', response.data.authent_name);
     }
 
-    putUser(params) {
-        this.store.setItem('user', params);
-    }
-
-    getMenus() {
-        return this.store.getItem('menus');
-    }
-
-    authent() {
+    get authent() {
         return this.store.getItem('authent');
     }
 
-    theme() {
+    get check() {
+        return !!this.store.getItem('access_token') && !this.expired;
+    }
+
+    get theme() {
         return this.store.getItem('theme');
     }
 
-    setTheme(value) {
-        this.store.setItem('theme', value);
+    set theme(theme) {
+        if (!theme) return;
+
+        this.store.setItem('theme', theme);
     }
 
-    setMenus(params) {
-        this.store.setItem('menus', params);
+    get menus() {
+        return this.store.getItem('menus');
     }
 
-    token() {
+    set menus(menus) {
+        if (!menus) return;
+
+        this.store.setItem('menus', menus);
+    }
+
+    get serverMode() {
+        return this.mode === 'server-side';
+    }
+
+    set token(response) {
+        if (!response) return;
+
+        this.store.setItem('access_token', response.access_token);
+        this.store.setItem('expires_in', response.expires_in);
+        this.store.setItem('refresh_token', response.refresh_token);
+        this.store.setItem('token_type', response.token_type);
+        this.store.setItem('token_create', Date.now());
+    }
+
+    get token() {
+        return this.store.getItem('token_type') + ' ' + this.store.getItem('access_token');
+    }
+
+    get csrf() {
         return (document.head.querySelector('meta[name="csrf-token"]')).content;
+    }
+
+    get expired() {
+        let minute = parseInt((Date.now() - parseInt(this.store.getItem('token_create'))) / 1000);
+        let expire = parseInt(this.store.getItem('expires_in'));
+
+        return minute >= expire;
+    }
+
+    updateUser(user) {
+        this.store.setItem('user', user);
     }
 
     signout() {
         this.store.clear();
         
-        document.getElementById('signout').submit();
+        if (this.mode === 'server-side') {
+            document.getElementById('signout').submit();
+        }
     }
 }
 
@@ -100,10 +140,16 @@ export const AuthProvider = {
                     'X-Requested-With': 'XMLHttpRequest'
                 };
 
-                headers =  Object.assign({
-                    'X-CSRF-TOKEN': $auth.token()
-                }, headers);
-
+                if ($auth.mode === 'server-side') {
+                    headers =  Object.assign({
+                        'X-CSRF-TOKEN': $auth.csrf
+                    }, headers);
+                } else {
+                    headers =  Object.assign({
+                        'Authorization': $auth.token
+                    }, headers);
+                }
+                
                 return Axios.create({
                     headers
                 });

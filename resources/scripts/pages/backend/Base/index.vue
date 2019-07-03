@@ -12,7 +12,11 @@
 
                     <v-divider :class="menu.class" v-else-if="menu.type === 'divider'"></v-divider>
 
-                    <v-subheader class="text-uppercase" :class="menu.class" v-else-if="menu.type === 'subheader'">{{ menu.text }}</v-subheader>
+                    <v-subheader 
+                        class="text-uppercase" 
+                        :class="menu.class" 
+                        v-else-if="menu.type === 'subheader'"
+                    >{{ menu.text }}</v-subheader>
                     
                     <v-list-group :prepend-icon="menu.icon" v-else>
                         <v-list-tile slot="activator">
@@ -63,7 +67,6 @@
 </template>
 
 <script>
-import { setTimeout } from 'timers';
 export default {
     name: 'page-base',
 
@@ -101,13 +104,11 @@ export default {
     },
 
     mounted() {
-        this.token = this.$auth.token();
+        this.token = this.$auth.serverMode ? this.$auth.csrf : this.$auth.token;
 
-        this.menus = this.$auth.getMenus();
+        this.menus = this.$auth.menus;
 
-        if (!this.menus) {
-            this.fetchMenus();
-        }
+        if (!this.menus) this.fetchMenus();
     },
 
     methods: {
@@ -115,7 +116,7 @@ export default {
             try {
                 let menus = await this.$http.get('/api/menus');
                 this.menus = menus.data;
-                this.$auth.setMenus(menus.data);    
+                this.$auth.menus = menus.data;
             } catch (error) {
                 this.$error = error;
             }

@@ -84,7 +84,7 @@ export default {
     }),
 
     created() {
-        this.record = this.$auth.getUser();
+        this.record = this.$auth.user;
     },
 
     methods: {
@@ -94,8 +94,8 @@ export default {
                     '/api/profile', this.record
                 );
                 
-                this.$auth.setTheme(this.record.theme);
-                this.$auth.putUser(this.record);
+                this.$auth.theme = this.record.theme;
+                this.$auth.updateUser(this.record);
                 this.$root.theme = this.record.theme;
                 this.$message = 'update profile berhasil!';
             } catch (error) {
