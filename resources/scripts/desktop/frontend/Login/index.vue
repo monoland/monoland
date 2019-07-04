@@ -13,6 +13,7 @@
                                 color="cyan"
                                 v-model="email"
                                 autocomplete="off"
+                                prepend-icon="mail_outline"
                             ></v-text-field>
                             
                             <v-text-field 
@@ -23,6 +24,7 @@
                                 :append-icon="hidden ? 'visibility_off' : 'visibility'"
                                 :type="hidden ? 'password' : 'text'"
                                 @click:append="hidden = !hidden"
+                                prepend-icon="lock_open"
                             ></v-text-field>
                         </v-card-text>
 
@@ -57,7 +59,7 @@ export default {
     }),
 
     mounted() {
-        this.token = this.$auth.token();
+        this.token = this.$auth.serverMode ? this.$auth.csrf : this.$auth.token;
     }
 };
 </script>

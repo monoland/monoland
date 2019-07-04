@@ -3,8 +3,8 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import * as backend from '@scripts/pages/backend';
-import * as apps from '@scripts/pages/apps';
+import * as backend from '@scripts/desktop/backend';
+import * as apps from '@scripts/desktop/apps';
 
 export default new VueRouter({
     routes: [

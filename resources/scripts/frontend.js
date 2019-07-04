@@ -6,10 +6,10 @@ Vue.config.productionTip = false;
 Vue.use(Vuetify);
 Vue.use(AuthProvider);
 
-import Monoland from './pages/Monoland.vue';
-import router from './routes/frontend';
+import Deskland from './desktop/Deskland.vue';
+import router from './routes/desktop/frontend';
 
 new Vue({
     router,
-    render: h => h(Monoland)
+    render: h => h(Deskland)
 }).$mount('#monoland');

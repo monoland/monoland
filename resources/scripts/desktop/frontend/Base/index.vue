@@ -70,7 +70,7 @@ export default {
             try {
                 let { data: {data}} = await this.$http.get(url);
                 if (data.meta.avatar) {
-                    this.logo = '/images/small/' + data.meta.avatar;
+                    this.logo = '/images/original/' + data.meta.avatar;
                 } else {
                     this.logo = '/images/logos-holder.png';
                 }

@@ -233,7 +233,7 @@ export const FormProvider = {
             try {
                 this.beforeDelete();
 
-                if (this.cencelDelete()) {
+                if (this.cancelDelete()) {
                     this.form.onDelete = false;
                     return;
                 }

@@ -6,20 +6,35 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\SettingResource;
 use App\Models\Setting;
+use Jenssegers\Agent\Agent;
 
 class AppsController extends Controller
 {
+    protected $agent;
+
+    public function __construct(Agent $agent)
+    {
+        $this->agent = $agent;
+    }
+
     public function frontend()
     {
-        return view('default', ['pagemode' => 'frontend']);
+        if ($this->agent->isMobile()) {
+            return view('default', ['pagemode' => 'mobifront']);
+        } else {
+            return view('default', ['pagemode' => 'frontend']);
+        }
     }
 
     public function backend()
     {
-        return view('default', ['pagemode' => 'backend']);
+        if ($this->agent->isMobile()) {
+            return view('default', ['pagemode' => 'mobiback']);
+        } else {
+            return view('default', ['pagemode' => 'backend']);
+        }
     }
 
     public function user(Request $request)
@@ -27,8 +42,8 @@ class AppsController extends Controller
         return new UserResource($request->user());
     }
 
-    public function profile(Request $request) 
-    {    
+    public function profile(Request $request)
+    {
         return User::updateRecord($request, $request->user());
     }
 
@@ -44,7 +59,7 @@ class AppsController extends Controller
 
     public function company(Request $request)
     {
-        return new SettingResource( Setting::find('company') );
+        return new SettingResource(Setting::find('company'));
     }
 
     public function menus(Request $request)

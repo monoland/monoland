@@ -11,8 +11,8 @@ Object.keys(Parts).forEach((part) => {
     Vue.component(Parts[part].name, Parts[part]);
 });
 
-import Deskland from './desktop/Deskland.vue';
-import router from './routes/desktop/backend';
+import Mobiland from './mobile/Mobiland.vue';
+import router from './routes/mobile/frontend';
 
 new Vue({
     router,
@@ -28,5 +28,5 @@ new Vue({
             text: null
         }
     }),
-    render: h => h(Deskland)
+    render: h => h(Mobiland)
 }).$mount('#monoland');
