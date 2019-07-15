@@ -18379,7 +18379,15 @@ var render = function() {
         _vm._t("navigate", [
           _c(
             "v-btn",
-            { staticClass: "ma-0", attrs: { icon: "" } },
+            {
+              staticClass: "ma-0",
+              attrs: { icon: "" },
+              on: {
+                click: function($event) {
+                  _vm.$root.navdraw = !_vm.$root.navdraw
+                }
+              }
+            },
             [_c("v-icon", [_vm._v("menu")])],
             1
           )

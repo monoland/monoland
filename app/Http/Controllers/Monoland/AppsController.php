@@ -22,19 +22,15 @@ class AppsController extends Controller
     public function frontend()
     {
         if ($this->agent->isMobile()) {
-            return view('default', ['pagemode' => 'mobifront']);
-        } else {
-            return view('default', ['pagemode' => 'frontend']);
+            return view('default', ['pagemode' => 'mobile']);
         }
+
+        return view('default', ['pagemode' => 'frontend']);
     }
 
     public function backend()
     {
-        if ($this->agent->isMobile()) {
-            return view('default', ['pagemode' => 'mobiback']);
-        } else {
-            return view('default', ['pagemode' => 'backend']);
-        }
+        return view('default', ['pagemode' => 'backend']);
     }
 
     public function user(Request $request)

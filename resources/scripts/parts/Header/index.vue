@@ -19,7 +19,7 @@
 
         <div class="v-header__content">
             <slot name="navigate">
-                <v-btn class="ma-0" icon>
+                <v-btn class="ma-0" icon @click="$root.navdraw = !$root.navdraw">
                     <v-icon>menu</v-icon>
                 </v-btn>
             </slot>
@@ -157,7 +157,7 @@ export default {
             try {
                 let user = await this.$http.get('/api/user');
                 
-                this.$auth.user = user.data;
+                this.$auth.user = user.data.data;
                 this.user = this.$auth.user;
                 this.$root.user = this.$auth.user;
                 this.$root.theme = this.$auth.theme;

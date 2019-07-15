@@ -24,6 +24,7 @@
                                 :append-icon="hidden ? 'visibility_off' : 'visibility'"
                                 :type="hidden ? 'password' : 'text'"
                                 @click:append="hidden = !hidden"
+                                autocomplete="off"
                                 prepend-icon="lock_open"
                             ></v-text-field>
                         </v-card-text>

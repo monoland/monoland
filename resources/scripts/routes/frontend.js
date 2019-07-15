@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import * as frontend from '@scripts/mobile/frontend';
+import * as frontend from '@scripts/pages/desktop/frontend';
 
 export default new VueRouter({
     routes: [

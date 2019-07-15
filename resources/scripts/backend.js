@@ -11,8 +11,8 @@ Object.keys(Parts).forEach((part) => {
     Vue.component(Parts[part].name, Parts[part]);
 });
 
-import Deskland from './desktop/Deskland.vue';
-import router from './routes/desktop/backend';
+import Apps from './pages/Apps.vue';
+import router from './routes/backend';
 
 new Vue({
     router,
@@ -26,7 +26,8 @@ new Vue({
             state: false,
             color: null,
             text: null
-        }
+        },
+        navdraw: true
     }),
-    render: h => h(Deskland)
+    render: h => h(Apps)
 }).$mount('#monoland');

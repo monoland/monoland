@@ -1,5 +1,5 @@
 <template>
-    <div class="mobiland" :class="{ 'mobiland--loaded': !fontLoaded }">
+    <div class="monoland" :class="{ 'monoland--loaded': !fontLoaded }">
         <router-view v-if="fontLoaded"></router-view>
     </div>
 </template>

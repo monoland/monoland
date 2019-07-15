@@ -3,8 +3,8 @@
     "/scripts/frontend.js": "/scripts/frontend.js",
     "/styles/frontend.css": "/styles/frontend.css",
     "/styles/backend.css": "/styles/backend.css",
-    "/styles/mobifront.css": "/styles/mobifront.css",
+    "/styles/mobile.css": "/styles/mobile.css",
     "/scripts/manifest.js": "/scripts/manifest.js",
-    "/scripts/mobifront.js": "/scripts/mobifront.js",
+    "/scripts/mobile.js": "/scripts/mobile.js",
     "/scripts/vendor.js": "/scripts/vendor.js"
 }

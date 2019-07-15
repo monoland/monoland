@@ -1,6 +1,6 @@
 <template>
     <v-app class="backend" v-cloak>
-        <v-navigation-drawer width="240" fixed app>
+        <v-navigation-drawer width="240" fixed app v-model="$root.navdraw">
             <v-list class="v-list--navdraw">
                 <template v-for="(menu, index) in menus">
                     <v-list-tile :active-class="theme + ' white--text'" :to="menu.to" v-if="menu.type === 'item'">

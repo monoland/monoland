@@ -15,7 +15,7 @@ mix.stylus('resources/styles/frontend/main.styl', 'public/styles/frontend.css');
 mix.js('resources/scripts/backend.js', 'public/scripts')
 mix.stylus('resources/styles/backend/main.styl', 'public/styles/backend.css');
 
-mix.js('resources/scripts/mobifront.js', 'public/scripts')
-mix.stylus('resources/styles/mobifront/main.styl', 'public/styles/mobifront.css');
+mix.js('resources/scripts/mobile.js', 'public/scripts')
+mix.stylus('resources/styles/mobile/main.styl', 'public/styles/mobile.css');
 
 mix.extract(['vue', 'vuetify']);

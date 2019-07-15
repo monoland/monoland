@@ -30,7 +30,7 @@ class Authenticate
         });
 
         this.user = null;
-        this.mode = 'server-mode';
+        this.mode = 'client-mode';
         this.sitekey = process.env.MIX_SITEKEY;
         this.secretKey = process.env.MIX_SECRETKEY;
     }
@@ -110,18 +110,13 @@ class Authenticate
     }
 
     signout() {
-        try {
-            this.store.clear();    
-            document.getElementById('signout').submit();
-        } catch (error) {
-            // 
-        }
+        this.store.clear();
     }
 }
 
 export const Auth = new Authenticate();
 
-export const AuthProvider = {
+export const MobiProvider = {
     install (Vue) {
         if (this.installed) { return; }
 
@@ -144,7 +139,7 @@ export const AuthProvider = {
                 };
 
                 headers =  Object.assign({
-                    'X-CSRF-TOKEN': $auth.csrf
+                    'Authorization': $auth.token
                 }, headers);
                 
                 return Axios.create({

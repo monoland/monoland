@@ -1,10 +1,17 @@
 <template>
     <v-app v-cloak>
-        <v-navigation-drawer width="400" right app>
+        <v-navigation-drawer width="400" right app v-model="$root.navdraw">
             <router-view :key="$route.path"></router-view>
         </v-navigation-drawer>
 
         <v-content>
+            <v-toolbar card flat dark class="transparent" v-if="smallWindow">
+                <v-spacer></v-spacer>
+                <v-btn icon @click="$root.navdraw = !$root.navdraw">
+                    <v-icon large>account_circle</v-icon>
+                </v-btn>
+            </v-toolbar>
+
             <v-container fill-height>
                 <v-layout align-center justify-center>
                     <div class="message-box">
@@ -46,7 +53,8 @@ export default {
         height: 0,
         width: 0,
         company: null,
-        slogan: null
+        slogan: null,
+        smallWindow: false
     }),
 
     created() {
@@ -54,6 +62,8 @@ export default {
     },
 
     mounted() {
+        this.smallWindow = this.$vuetify.breakpoint.name === 'md' || this.$vuetify.breakpoint.name === 'sm';
+
         if (window.errors) {
             if (window.errors.hasOwnProperty('email')) {
                 this.message = window.errors.email[0];
