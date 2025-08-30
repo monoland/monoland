@@ -10,7 +10,7 @@ export default defineConfig({
         laravel({
             input: ["resources/src/desktop.js", "resources/src/mobile.js"],
             refresh: true,
-            detectTls: "singleton.test",
+            detectTls: "monoland.test",
         }),
         Vue({
             template: {
