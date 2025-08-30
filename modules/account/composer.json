@@ -1,0 +1,25 @@
+{
+	"name": "monopwa/module-account",
+	"description": "Monoland Module Account",
+	"authors": [
+		{
+			"name": "monoland",
+			"email": "monoland.soft@gmail.com"
+		}
+	],
+	"require": {
+		"php": "^8.2"
+	},
+	"autoload": {
+		"files": [
+            "src/Supports/Helper.php"
+        ],
+
+		"psr-4": {
+			"Module\\Account\\": "src/",
+			"ModuleAccount\\Seeders\\": "database/seeders"
+		}
+	},
+	"minimum-stability": "stable",
+	"prefer-stable": true
+}

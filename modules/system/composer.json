@@ -1,0 +1,25 @@
+{
+	"name": "monopwa/module-system",
+	"description": "Monoland Module System",
+	"authors": [
+		{
+			"name": "monoland",
+			"email": "monoland.soft@gmail.com"
+		}
+	],
+	"require": {
+		"php": "^8.2"
+	},
+	"autoload": {
+		"files": [
+            "src/Supports/Helper.php"
+        ],
+
+		"psr-4": {
+			"Module\\System\\": "src/",
+			"ModuleSystem\\Seeders\\": "database/seeders"
+		}
+	},
+	"minimum-stability": "stable",
+	"prefer-stable": true
+}
