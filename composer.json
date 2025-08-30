@@ -63,6 +63,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "merge-plugin": {
+            "include": [
+                "modules/*/composer.json"
+            ]
         }
     },
     "config": {
@@ -74,6 +79,16 @@
             "php-http/discovery": true
         }
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/monoland/platform"
+        },
+        {
+            "type": "path",
+            "url": "modules/*"
+        }
+    ],
     "minimum-stability": "stable",
     "prefer-stable": true
 }
